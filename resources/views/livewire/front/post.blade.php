@@ -32,22 +32,25 @@
                                 @endauth
                             </div>                            
                         </div>
-                    @else
+                        @else
                         <div class="w-full flex shrink-0 rounded-[10px] shadow-md overflow-hidden">
-                            <img src="{{Storage::url($post->image)}}" class="object-cover w-full" alt="hero image">
+                            <img src="{{ Storage::url($post->image) }}" class="object-cover w-full max-w-full h-auto" alt="hero image">
                         </div>
                     @endif
-                    <div class="">
+                    
+                    <div class="mt-4">
                         <span class="bg-blue-900 text-white text-xs font-medium me-2 px-3 py-1 rounded">{{ $post->category->name }}</span>
                         <span class="text-sm"><i class="fas fa-eye"></i> {{ $post->views }} Views</span>
                         <span class="text-sm ms-2"><i class="fas fa-clock"></i> {{ $post->created_at->isoFormat('D MMMM Y') }}</span>
                     </div>
-                    <h1 class="font-semibold text-[25px]">
+                    
+                    <h1 class="font-semibold text-[25px] sm:text-[20px] mt-2">
                         {{$post->title}}
                     </h1>
-                    <div class="flex flex-col gap-4 prose">
-                        <article class="text-gray-200">{!! $post->body !!}</article>
-                    </div>
+                    
+                    <div class="flex flex-col gap-4 prose prose-invert max-w-full">
+                        <article class="text-gray-200 break-words">{!! $post->body !!}</article>
+                    </div>                    
                 </div>
                 <!-- Sidebar -->
                 <div class="w-full md:w-[30%] mt-[20px] md:mt-[90px] flex flex-col sticky top-[90px] gap-4 h-fit">

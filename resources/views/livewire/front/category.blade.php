@@ -9,24 +9,22 @@
     </header>
     
     <section id="NewProduct" class="container max-w-[1130px] mx-auto my-[50px] md:my-[102px] flex flex-col gap-8 px-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[22px]">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             @forelse($categoriess as $category)
-                <div class="product-card flex flex-col rounded-[18px] bg-[#181818] overflow-hidden">
+                <div class="product-card flex flex-col rounded-[18px] bg-[#181818] overflow-hidden shadow-lg transition-all duration-300 hover:scale-105">
                     <a href="/artikel?category={{ $category->slug }}" class="thumbnail w-full flex shrink-0 overflow-hidden relative">
                         <img src="{{Storage::url($category->image)}}" class="w-full h-full object-cover" alt="thumbnail">
                     </a>
-                    <div class="p-[10px_14px_12px] h-full flex flex-col justify-between gap-[14px]">
+                    <div class="p-4 h-full flex flex-col justify-between gap-3">
                         <div class="flex flex-col gap-1">
-                            <a href="/artikel?category={{ $category->slug }}" class="font-semibold line-clamp-2 hover:line-clamp-none">{{$category->name}}</a>
+                            <a href="/artikel?category={{ $category->slug }}" class="font-semibold text-white hover:text-blue-500 line-clamp-2 hover:line-clamp-none">{{$category->name}}</a>
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="text-center">
-                    Belum ada kategori tersedia.
-                </p>
+                <p class="text-center col-span-full text-white">Belum ada kategori tersedia.</p>
             @endforelse
         </div>
-    </section>
+    </section>    
         
 </div>
