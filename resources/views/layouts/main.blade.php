@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $meta_desc }}">
-    <meta property="og:title" content="Teknik Rekayasa: inovasi terbaru dari mahasiswa Teknik Informatika">
     <meta property="og:title" content="{{ $title }}">
+    <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:description" content="{{ $meta_desc }}">
-    <meta property ="og : url" content="https://www.teknikrekayasa.com">
+    <meta property="og:image" content="{{ Storage::url($post->image) ?? asset('images/logos/logo_1.png') }}">
+    {{-- icon --}}
+    <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
+    
     @stack('before-style')
     <link href="{{asset('css/output.css')}}" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
