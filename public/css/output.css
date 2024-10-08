@@ -6,33 +6,38 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
+/* Atur styling dasar untuk code block */
+/* Styling untuk container code block */
+/* Styling untuk blok kode */
 pre {
-    background-color: #1e1e1e;
-    color: #dcdcdc;
-    padding: 10px;
-    border-radius: 5px;
-    overflow-x: auto;
-    font-size: 14px;
-    line-height: 1.5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid #333;
+    background-color: #2d2d2d; /* Warna latar belakang */
+    color: #f8f8f2; /* Warna teks */
+    padding: 10px; /* Ruang dalam */
+    border-radius: 5px; /* Sudut melengkung */
+    overflow-x: auto; /* Scroll horizontal untuk konten yang melampaui */
+    white-space: pre-wrap; /* Membungkus teks */
+    word-wrap: break-word; /* Memecah kata yang terlalu panjang */
 }
 
+/* Styling untuk elemen kode dalam pre */
 code {
-    font-family: "Courier New", Courier, monospace;
-    background-color: #1e1e1e;
-    color: #dcdcdc;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 13px;
+    font-family: Menlo, Monaco, "Courier New", monospace; /* Font untuk kode */
+    font-size: 14px; /* Ukuran font */
 }
 
-ul,
-ol {
-    color: white; /* Pastikan teksnya terlihat */
-    list-style-type: disc; /* Pastikan daftar memiliki gaya penanda */
-    margin-left: 20px; /* Atur jarak agar terlihat terindentasi */
+/* Responsif untuk artikel */
+article {
+    margin: 0; /* Hapus margin default jika ada */
+    padding: 10px; /* Tambahkan padding */
 }
+
+/* Tambahkan media query jika perlu untuk tampilan di perangkat kecil */
+@media (max-width: 768px) {
+    article {
+        padding: 5px; /* Padding lebih kecil di perangkat kecil */
+    }
+}
+
 *,
 ::before,
 ::after {

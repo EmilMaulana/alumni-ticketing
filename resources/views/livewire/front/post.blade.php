@@ -1,9 +1,9 @@
 <div>
-    <section id="DetailsContent" class="max-w-[1130px] mx-auto mb-[32px] pt-[40px] relative -top-[70px] px-2">
+    <section id="DetailsContent" class="max-w-[1130px] mx-auto mb-[32px] pt-[40px] relative -top-[70px] px-2 md:px-2">
         <div class="flex flex-col gap-5">
             <div class="flex flex-col md:flex-row gap-8 relative -mt-[93px]">
                 <!-- Main Content -->
-                <div class="flex flex-col p-[30px] gap-5 bg-[#181818] rounded-[10px] shadow-md w-full md:w-[70%] shrink-0 mt-[90px] h-fit">
+                <div class="flex flex-col p-5 md:p-[30px] gap-5 bg-[#181818] rounded-[10px] shadow-md w-full md:w-[70%] shrink-0 mt-[90px] h-fit">
                     @if ($post->video_url)
                         <div class="flex shrink-0 rounded-lg shadow-md overflow-hidden">
                             <div class="relative w-full" style="padding-top: 56.25%;">
@@ -32,7 +32,7 @@
                                 @endauth
                             </div>                            
                         </div>
-                        @else
+                    @else
                         <div class="w-full flex shrink-0 rounded-[10px] shadow-md overflow-hidden">
                             <img src="{{ Storage::url($post->image) }}" class="object-cover w-full max-w-full h-auto" alt="hero image">
                         </div>
@@ -49,13 +49,15 @@
                     </h1>
                     
                     <div class="flex flex-col gap-4 prose prose-invert max-w-full">
-                        <article class="text-gray-200 break-words">{!! $post->body !!}</article>
-                    </div>                    
+                        <article class="text-gray-200 break-words">
+                            {!! $post->body !!}
+                        </article>
+                    </div>
                 </div>
                 <!-- Sidebar -->
                 <div class="w-full md:w-[30%] mt-[20px] md:mt-[90px] flex flex-col sticky top-[90px] gap-4 h-fit">
                     <!-- Elemen pertama -->
-                    <div class="card bg-[#181818] rounded-[20px] p-[30px] ">
+                    <div class="card bg-[#181818] rounded-[20px] p-5 md:p-[30px] ">
                         <h4 class="font-semibold pb-2">Author</h4>
                         <div class="flex justify-between items-center">
                             <div class="flex gap-3 items-center">
@@ -75,7 +77,7 @@
                     </div>
                 
                     <!-- Elemen kedua -->
-                    <div class="card bg-[#181818] rounded-[20px] p-[30px]">
+                    <div class="card bg-[#181818] rounded-[20px] p-5 md:p-[30px]">
                         <div class="flex justify-between items-center">
                             <div class="flex gap-3 items-center">
                                 <div class="flex flex-col gap-[2px]">
@@ -92,11 +94,11 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <p class="text-sm leading-[24px] text-belibang-grey">A young UI/UX Designer from Indonesia. Specialized in mobile apps designs & loves creating UI Kit 🇮🇩</p> --}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
 </div>
+
+

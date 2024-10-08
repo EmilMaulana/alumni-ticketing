@@ -11,10 +11,11 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\RoleCheck;
 
 
-
+Route::get('/sitemap', [SitemapController::class, 'index']);
 // Route login
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->name('login');
