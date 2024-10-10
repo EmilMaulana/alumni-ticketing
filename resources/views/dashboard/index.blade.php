@@ -36,5 +36,8 @@
                 </div>
             </div>
         </section>
+        <section class="px-7 py-10">
+            @livewire('testimonial.testimonial')
+        </section>
     @endif
 @endsection

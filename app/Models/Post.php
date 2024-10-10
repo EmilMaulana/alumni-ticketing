@@ -22,28 +22,27 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // Definisikan metode filter
     public function scopeFilter($query, array $filters)
     {
-        // Menangani pencarian berdasarkan keyword
-        if ($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . $filters['search'] . '%');
-        }
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%');
+        });
 
-        // Menangani filter berdasarkan kategori
-        if ($filters['category'] ?? false) {
-            $query->whereHas('category', function($query) use ($filters) {
-                $query->where('slug', $filters['category']);
+        $query->when($filters['category'] ?? false, function ($query, $category) {
+            return $query->whereHas('category', function ($query) use ($category) {
+                $query->where('slug', $category);
             });
-        }
+        });
 
-        // Menangani filter berdasarkan pengguna
-        if ($filters['user'] ?? false) {
-            $query->whereHas('user', function($query) use ($filters) {
-                $query->where('name', $filters['user']);
+        $query->when($filters['user'] ?? false, function ($query, $user) {
+            return $query->whereHas('user', function ($query) use ($user) {
+                $query->where('name', $user);
             });
-        }
-
-        return $query; // Kembalikan query yang telah difilter
+        });
     }
+
+
+
+
 }

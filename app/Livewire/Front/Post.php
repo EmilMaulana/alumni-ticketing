@@ -21,6 +21,7 @@ class Post extends Component
         $this->relatedPosts = ModelPost::where('category_id', $category->id)
             ->where('id', '!=', $post->id) // Mengecualikan postingan saat ini
             ->limit(3) // Batasi jumlah postingan terkait yang ditampilkan
+            ->latest()
             ->get();
     }
 

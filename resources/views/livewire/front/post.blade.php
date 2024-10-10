@@ -61,8 +61,10 @@
                         <h4 class="font-semibold pb-2">Author</h4>
                         <div class="flex justify-between items-center">
                             <div class="flex gap-3 items-center">
-                                <div class="w-12 h-12 flex shrink-0 rounded-full">
-                                    <img src="{{Storage::url($post->user->profile_photo_path)}}" alt="icon" class="w-full h-full object-cover rounded-full">
+                                <div class="w-12 h-12 flex shrink-0 rounded-full overflow-hidden">
+                                    <img src="{{ $post->user->profile_photo_path ? Storage::url($post->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->user->name).'&background=random' }}" 
+                                        alt="icon" 
+                                        class="w-full h-full object-cover rounded-full">
                                 </div>
                                 <div class="flex flex-col gap-[2px]">
                                     <p class="font-semibold">{{ $post->user->name }}</p>
@@ -100,5 +102,14 @@
         </div>
     </section>
 </div>
+
+
+
+
+
+
+
+
+
 
 

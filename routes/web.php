@@ -10,12 +10,14 @@ use App\Livewire\Posts\PostsUpdate;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\RoleCheck;
 
 
 Route::get('/sitemap', [SitemapController::class, 'index']);
+Route::get('/about', [FooterController::class, 'index']);
 // Route login
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->name('login');
@@ -35,7 +37,8 @@ Route::get('/dashboard/profile', function () {
     ]);
 })->name('profile');
 
-Route::get('/artikel', [FrontController::class, 'post'])->name('front.post.category');
+Route::get('/posts', [FrontController::class, 'post'])->name('front.posts');
+Route::get('/search', [FrontController::class, 'post'])->name('search.index');
 // Route::get('/artikel/{slug}', [FrontController::class, 'post'])->name('post.show');
 
 Route::get('/', [FrontController::class, 'index'])->name('index');

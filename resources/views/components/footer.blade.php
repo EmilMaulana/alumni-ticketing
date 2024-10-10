@@ -43,7 +43,7 @@
                 <div class="flex flex-col gap-8">
                     <p class="font-semibold text-sm">Contact us</p>
                     <div class="flex flex-col gap-[18px]">
-                        <a href="" class="text-belibang-grey font-semibold text-xs">About us</a>
+                        <a href="/about" class="text-belibang-grey font-semibold text-xs">About us</a>
                         <a href="" class="text-belibang-grey font-semibold text-xs">Company</a>
                         <a href="" class="text-belibang-grey font-semibold text-xs">Careers</a>
                     </div>

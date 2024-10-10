@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:description" content="{{ $meta_desc }}">
-    <meta property="og:image" content="{{ Storage::url($post->image) ?? asset('images/logos/logo_1.png') }}">
+    <meta property="og:image" content="{{ $image ?? asset('images/logos/logo_1.png') }}">
     {{-- icon --}}
     <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
     
@@ -35,6 +35,9 @@
                 <ul id="menu" class="hidden lg:flex gap-6 items-center">
                     <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">
                         <a href="/">Beranda</a>
+                    </li>
+                    <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">
+                        <a href="/posts">Artikel</a>
                     </li>
                     <li class="relative">
                         <button id="menu-button" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 flex items-center gap-1">
@@ -82,7 +85,12 @@
             <li class="w-full">
                 <a href="/" class="block w-full text-left text-belibang-grey hover:text-white py-2 border-b border-belibang-dark-grey">Beranda</a>
             </li>
-            <li class="w-full relative">
+            <hr class="py-2">
+            <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 pb-1">
+                <a href="/posts">Artikel</a>
+            </li>
+            <hr class="py-2">
+            <li class="w-full relative pb-1">
                 <button id="menu-kelas-btn" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 flex items-center gap-1">
                     <span>Kelas</span>
                     <img src="{{asset('images/icons/arrow-down.svg')}}" alt="icon">
@@ -98,9 +106,11 @@
                     <!-- Repeat for other Kelas -->
                 </div>
             </li>
-            <li class="w-full">
+            <hr class="py-2">
+            <li class="w-full pb-1">
                 <a href="{{ route('front.category') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Kategori</a>
             </li>
+            <hr class="py-2">
             @guest
             <li class="mt-3">
                 <a href="{{ route('login') }}" class="p-[8px_16px] text-white rounded-[12px] hover:bg-[#2A2A2A] hover:text-white transition-all duration-300 bg-violet-700">Log in</a>
