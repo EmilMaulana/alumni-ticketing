@@ -26,6 +26,7 @@
         </div>
     </section>
     @if (Auth::user()->role_id == 3)
+        @livewire('statistic.statistic')
         @livewire('user.user-list')
     @else
         <section class="header px-7 pt-10">
@@ -36,8 +37,8 @@
                 </div>
             </div>
         </section>
-        <section class="px-7 py-10">
-            @livewire('testimonial.testimonial')
-        </section>
     @endif
+    <section class="px-7 py-5">
+        @livewire('testimonial.testimonial')
+    </section>
 @endsection

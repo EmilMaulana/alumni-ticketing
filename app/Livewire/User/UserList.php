@@ -29,4 +29,13 @@ class UserList extends Component
         ]);
     }
 
+    public function updateStatus($postId, $status)
+    {
+        $post = Post::find($postId);
+        if ($post) {
+            $post->status = $status;
+            $post->save();
+        }
+    }
+
 }

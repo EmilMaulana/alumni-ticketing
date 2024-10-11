@@ -12,7 +12,7 @@ class FrontController extends Controller
 {
     public function index()
     {   
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::where('status', 'approved')->latest()->paginate(10);
         $latestPost = Post::latest()->first();
         return view('front.index', [
             'title' => 'TEKNIK REKAYASA',
@@ -28,6 +28,11 @@ class FrontController extends Controller
 
     public function show(Post $post)
     {   
+        // Cek apakah status post adalah 'approved'
+        if ($post->status !== 'approved') {
+            abort(404); // Atau redirect ke halaman lain jika status bukan 'approved'
+        }
+        
         $postCount = $post->user->posts()->count(); // Pastikan relasi 'user' sudah didefinisikan di model Post
         $post->increment('views');
         
@@ -79,7 +84,8 @@ class FrontController extends Controller
             'active' => 'blog',
             'meta_desc' => $latestPost ? $latestPost->excerpt : "Deskripsi default jika tidak ada post",
             'image' => $latestPost ? $latestPost->image : '', // Pastikan ini tidak menyebabkan error
-            'posts' => Post::latest()
+            'posts' => Post::where('status', 'approved')
+                ->latest()
                 ->filter(request(['search', 'category', 'user'])) // Menambahkan filter pencarian ke query string
                 ->paginate(12)
                 ->withQueryString(),

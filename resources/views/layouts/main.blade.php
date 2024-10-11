@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="belajar pemrograman, kursus pemrograman, bootcamp pemrograman, belajar coding, tutorial pemrograman, kelas online pemrograman, pemrograman web, belajar coding online, belajar HTML, belajar CSS, belajar JavaScript, belajar Python, belajar PHP, belajar Laravel, kursus Python, kursus JavaScript, kursus HTML, kursus CSS, belajar framework, tutorial Laravel, tutorial React, tutorial Vue, belajar full-stack development, kelas coding, kursus front-end, kursus back-end, kelas pemrograman online, programming bootcamp, kursus IT, belajar pemrograman dari nol, belajar web development, belajar mobile development, kursus aplikasi mobile, tutorial membuat website, kursus coding untuk pemula">
     <meta name="description" content="{{ $meta_desc }}">
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:description" content="{{ $meta_desc }}">
     <meta property="og:image" content="{{ $image ?? asset('images/logos/logo_1.png') }}">
+    <meta name="google-site-verification" content="MTVEfS0FoMrmc-lB0X5F3ks_DcbFnlK0-NWLjNs01dg" />
     {{-- icon --}}
     <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
     
@@ -67,7 +69,7 @@
             <!-- Desktop Auth Links -->
             <div class="hidden lg:flex gap-6 items-center">
                 @guest
-                <a href="{{ route('login') }}" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">Log in</a>
+                <a href="{{ route('login') }}" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">Sign In</a>
                 <a href="{{ route('register') }}" class="p-[8px_16px] text-white rounded-[12px] hover:bg-[#2A2A2A] hover:text-white transition-all duration-300 bg-violet-700">Sign up</a>
                 @endguest
                 @auth
@@ -113,7 +115,7 @@
             <hr class="py-2">
             @guest
             <li class="mt-3">
-                <a href="{{ route('login') }}" class="p-[8px_16px] text-white rounded-[12px] hover:bg-[#2A2A2A] hover:text-white transition-all duration-300 bg-violet-700">Log in</a>
+                <a href="{{ route('login') }}" class="p-[8px_16px] text-white rounded-[12px] hover:bg-[#2A2A2A] hover:text-white transition-all duration-300 bg-violet-700">Sign In</a>
             </li>
             <li class="mt-6">
                 <a href="{{ route('register') }}" class="p-[8px_16px] text-white rounded-[12px] hover:bg-[#2A2A2A] hover:text-white transition-all duration-300 bg-violet-700">Sign up</a>

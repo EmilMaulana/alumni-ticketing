@@ -69,7 +69,8 @@
                             </div>
                             <div class="flex gap-[10px] items-center -mt-8">
                                 <div class="w-12 h-12 flex shrink-0 rounded-full">
-                                    <img src="{{ asset('storage/' . $post->user->profile_photo_path) }}" class="w-full h-full object-cover rounded-full"
+                                    <img src="{{ $post->user->profile_photo_path ? asset('storage/' . $post->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->user->name).'&background=random' }}" 
+                                        class="w-full h-full object-cover rounded-full"
                                         alt="photo">
                                 </div>
                                 <div class="flex flex-col justify-center-center">
@@ -114,8 +115,8 @@
                             </div>
                             <div class="flex gap-[14px] items-center">
                                 <div class="w-10 h-10 flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{ $testimonial->user->profile_photo_path ? asset($testimonial->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($testimonial->user->name).'&background=random' }}" 
-                                        class="w-full h-full object-cover" 
+                                    <img src="{{ $testimonial->user->profile_photo_path ? asset('storage/' . $testimonial->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($testimonial->user->name).'&background=random' }}" 
+                                        class="w-full h-full object-cover rounded-full"
                                         alt="photo">
                                 </div>  
                                 <div class="flex flex-col justify-center">
@@ -144,8 +145,8 @@
                             </div>
                             <div class="flex gap-[14px] items-center">
                                 <div class="w-10 h-10 flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{ $testimonial->user->profile_photo_path ? asset($testimonial->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($testimonial->user->name).'&background=random' }}" 
-                                        class="w-full h-full object-cover" 
+                                    <img src="{{ $testimonial->user->profile_photo_path ? asset('storage/' . $testimonial->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($testimonial->user->name).'&background=random' }}" 
+                                        class="w-full h-full object-cover rounded-full"
                                         alt="photo">
                                 </div>  
                                 <div class="flex flex-col justify-center">
@@ -160,45 +161,6 @@
         </div>
     </div>
 </section>
-{{-- <section id="Testimoni" class="mb-[102px] flex flex-col gap-8 px-3">
-    <div class="container max-w-[1130px] mx-auto flex justify-between items-center">
-        <h2 class="font-semibold text-[22px]">Kata mereka yang belajar bersama<br>Teknik Rekayasa</h2>
-    </div>
-    <div class="logo-container animate-[slide_30s_linear_infinite] group-hover/slider:pause-animate flex flex-nowrap gap-2 no-scrollbar"> <!-- Disable wrapping and enable horizontal scrolling if needed -->
-        @foreach($testimonials as $testimonial)
-            <div class="testimonial-card bg-[#181818] rounded-[20px] flex w-[320px] h-[286px] shrink-0 mb-2 p-4"> <!-- Fixed width for cards -->
-                <div class="p-4 flex flex-col w-full gap-[20px] bg-[url('{{asset('/images/backgrounds/Testimonials-image.png')}}')] bg-contain bg-no-repeat bg-top"> <!-- Background settings -->
-                    <div class="flex flex-col gap-4">
-                        <div class="flex items-center gap-2">
-                            <img src="{{asset('/images/icons/star.svg')}}" alt="star">
-                            <img src="{{asset('/images/icons/star.svg')}}" alt="star">
-                            <img src="{{asset('/images/icons/star.svg')}}" alt="star">
-                            <img src="{{asset('/images/icons/star.svg')}}" alt="star">
-                            <img src="{{asset('/images/icons/star.svg')}}" alt="star">
-                        </div>
-                        <p class="text-sm">{{ $testimonial->body }}</p> <!-- Testimonial body -->
-                    </div>
-                    <div class="flex gap-[14px] items-center">
-                        <div class="w-10 h-10 flex shrink-0 rounded-full overflow-hidden">
-                            <img src="{{ $testimonial->user->profile_photo_path ? asset($testimonial->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($testimonial->user->name).'&background=random' }}" 
-                                class="w-full h-full object-cover" 
-                                alt="photo">
-                        </div>  
-                        <div class="flex flex-col justify-center">
-                            <p class="font-semibold text-left leading-[170%] bg-clip-text text-transparent bg-gradient-to-r from-[#B05CB0] to-[#FCB16B]">{{ $testimonial->user->name }}</p> <!-- Display user name -->
-                            <p class="font-semibold text-left text-xs text-belibang-grey text-uppercase">{{ ucwords($testimonial->user->occupation) }}</p> <!-- User occupation -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>    
-</section> --}}
-
-
-
-
-
 
 
 @endsection

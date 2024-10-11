@@ -16,14 +16,6 @@ class PostsCreate extends Component
 
     public $title, $body, $category_id, $image, $video_url;
 
-    protected $rules = [
-        'title' => 'required|string|max:255',
-        'body' => 'required',
-        'category_id' => 'required|exists:categories,id',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'video_url' => 'nullable', // Tambahkan validasi untuk image
-    ];
-
     public function store(Request $request)
     {   
         $validatedData = $request->validate([
@@ -39,11 +31,11 @@ class PostsCreate extends Component
             $validatedData['image'] = $request->file('image')->store('post-images', 'public');
         }
         
+        $validatedData['status'] = 'pending';
         $validatedData['slug'] = Str::slug($request->title);
         $validatedData['user_id'] = Auth::user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 90);
         
-
         Post::create($validatedData);
 
         // Tampilkan pesan sukses

@@ -16,6 +16,13 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\RoleCheck;
 
 
+// Route::get('/login', function () {
+//     return view('auth.login', [
+//         'meta_desc' => '',
+//         'title' => 'LOGIN'
+//     ])->name('login'); // Menampilkan view yang akan memuat komponen Livewire
+// });
+
 Route::get('/sitemap', [SitemapController::class, 'index']);
 Route::get('/about', [FooterController::class, 'index']);
 // Route login
@@ -60,4 +67,4 @@ Route::middleware(['auth', 'role'])->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

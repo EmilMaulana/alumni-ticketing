@@ -38,6 +38,9 @@
                             Title
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Image
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -55,6 +58,29 @@
                             <tr class="bg-white border-b text-gray-900">
                                 <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
                                     {{ $post->title }}
+                                </th>
+                                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
+                                    @switch($post->status)
+                                        @case('pending')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-400 text-white">
+                                                Pending
+                                            </span>
+                                            @break
+                                        @case('approved')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">
+                                                Approved
+                                            </span>
+                                            @break
+                                        @case('rejected')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">
+                                                Rejected
+                                            </span>
+                                            @break
+                                        @default
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">
+                                                Unknown
+                                            </span>
+                                    @endswitch
                                 </th>
                                 <td class="px-6 py-4">
                                     <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-60 rounded-lg">
