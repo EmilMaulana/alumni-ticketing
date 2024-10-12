@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasProfilePhoto;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\CustomEmailVerificationNotification;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
     use HasProfilePhoto;
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomEmailVerificationNotification());
+    }
 
     public function role()
     {

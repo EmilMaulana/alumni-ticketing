@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="belajar pemrograman, kursus pemrograman, bootcamp pemrograman, belajar coding, tutorial pemrograman, kelas online pemrograman, pemrograman web, belajar coding online, belajar HTML, belajar CSS, belajar JavaScript, belajar Python, belajar PHP, belajar Laravel, kursus Python, kursus JavaScript, kursus HTML, kursus CSS, belajar framework, tutorial Laravel, tutorial React, tutorial Vue, belajar full-stack development, kelas coding, kursus front-end, kursus back-end, kelas pemrograman online, programming bootcamp, kursus IT, belajar pemrograman dari nol, belajar web development, belajar mobile development, kursus aplikasi mobile, tutorial membuat website, kursus coding untuk pemula">
-    <meta name="description" content="{{ $meta_desc }}">
-    <meta property="og:title" content="{{ $title }}">
+    <meta name="description" content="{{ $meta_desc ?? 'TEKNIK REKAYASA' }}">
+    <meta property="og:title" content="{{ $title ?? 'TEKNIK REKAYASA' }}">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:description" content="{{ $meta_desc }}">
+    <meta property="og:description" content="{{ $meta_desc ?? 'TEKNIK REKAYASA' }}">
     <meta property="og:image" content="{{ $image ?? asset('images/logos/logo_1.png') }}">
     <meta name="google-site-verification" content="MTVEfS0FoMrmc-lB0X5F3ks_DcbFnlK0-NWLjNs01dg" />
     {{-- icon --}}
@@ -21,7 +21,7 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     @stack('after-style')
-    <title>{{ $title }}</title>
+    <title>{{ $title ?? 'TEKNIK REKAYASA' }}</title>
 </head>
 
 <body class="bg-belibang-black font-poppins text-white">
