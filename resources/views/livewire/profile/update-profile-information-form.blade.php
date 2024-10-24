@@ -15,6 +15,7 @@ new class extends Component
     public string $email = '';
     public string $about_me = '';
     public $photo; // Properti untuk foto profil baru
+    public $occupation; // Properti untuk foto profil baru
 
     /**
      * Mount the component.
@@ -25,6 +26,7 @@ new class extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->about_me = $user->about_me ?? '';
+        $this->occupation = $user->occupation;
         // Tidak perlu mendeklarasikan profile_photo_path di sini
     }
 
@@ -39,6 +41,7 @@ new class extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'about_me' => ['required', 'string', 'max:255'],
+            'occupation' => ['required'],
             'photo' => ['nullable', 'image', 'max:2048'], // Validasi untuk foto
         ]);
 
@@ -141,6 +144,11 @@ new class extends Component
                     @endif
                 </div>
             @endif
+        </div>
+        <div>
+            <x-input-label for="occupation" :value="__('Occupation')" />
+            <x-text-input wire:model="occupation" id="occupation" name="occupation" type="text" class="mt-1 block w-full"/>
+            <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
         </div>
         <div>
             <x-input-label for="about_me" :value="__('About Me')" />

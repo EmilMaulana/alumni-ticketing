@@ -35,6 +35,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Testimonial::class);
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

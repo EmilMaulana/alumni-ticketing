@@ -9,7 +9,7 @@ use App\Livewire\Posts\PostsList;
 use App\Livewire\Posts\PostsUpdate;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\SitemapController;
@@ -31,6 +31,8 @@ Route::get('/dashboard/profile', function () {
 Route::get('/posts', [FrontController::class, 'post'])->name('front.posts');
 Route::get('/search', [FrontController::class, 'post'])->name('search.index');
 
+Route::get('/product', [ProductController::class, 'frontProduct'])->name('front.product');
+Route::get('/product/{product:slug}', [ProductController::class, 'detail'])->name('product.detail');
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/category', [FrontController::class, 'category'])->name('front.category');
 Route::get('/{post:slug}', [FrontController::class, 'show'])->name('front.post');
@@ -42,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/posts/{post:slug}/edit', [PostsController::class, 'edit'])->name('posts.edit');
     Route::post('/dashboard/posts/{post:slug}/update', [PostsUpdate::class, 'update'])->name('posts.update');
     Route::delete('/dashboard/posts/{post:slug}/delete', [PostsList::class, 'delete'])->name('posts.delete');
+    Route::get('/dashboard/product', [ProductController::class, 'index'])->name('product.list');
     Route::post('/ckeditor/upload', [ImageUploadController::class, 'upload'])->name('ckeditor.upload');
 });
 

@@ -60,6 +60,9 @@
                     <li class="w-full">
                         <a href="{{ route('front.category') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Kategori</a>
                     </li>
+                    <li class="w-full">
+                        <a href="{{ route('front.product') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Produk</a>
+                    </li>
                 </ul>
             </div>
             <!-- Mobile Menu Button (Hamburger) -->
@@ -111,6 +114,9 @@
             <hr class="py-2">
             <li class="w-full pb-1">
                 <a href="{{ route('front.category') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Kategori</a>
+            </li>
+            <li class="w-full pb-1">
+                <a href="{{ route('front.product') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Produk</a>
             </li>
             <hr class="py-2">
             @guest
