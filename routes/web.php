@@ -31,11 +31,15 @@ Route::get('/dashboard/profile', function () {
 Route::get('/posts', [FrontController::class, 'post'])->name('front.posts');
 Route::get('/search', [FrontController::class, 'post'])->name('search.index');
 
+Route::get('/product/checkout/thank-you', [ProductController::class, 'success'])->name('product.checkout.success')->middleware(['auth', 'verified']);
 Route::get('/product', [ProductController::class, 'frontProduct'])->name('front.product');
 Route::get('/product/{product:slug}', [ProductController::class, 'detail'])->name('product.detail');
+Route::get('/product/checkout/{product:slug}', [ProductController::class, 'checkout'])->name('product.checkout')->middleware(['auth', 'verified']);
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/category', [FrontController::class, 'category'])->name('front.category');
 Route::get('/{post:slug}', [FrontController::class, 'show'])->name('front.post');
+
+Route::post('/midtrans/callback', [ProductController::class, 'handleMidtransCallback']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/posts', [PostsController::class, 'index'])->name('posts.list');

@@ -4,9 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Midtrans\Snap;
+use Illuminate\Support\Facades\Log;
+use App\Livewire\Product\Checkout;
+use Midtrans\Config;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public function handleMidtransCallback(Request $request)
+    {
+        $checkout = new Checkout();
+        
+        // Log untuk memastikan callback diterima
+        Log::info('Callback diterima dari Midtrans');
+
+        $response = json_decode($request->getContent());
+
+        if ($response) {
+            Log::info('Data callback valid, memproses status transaksi');
+            $checkout->handleTransactionStatus($response);
+            return response()->json(['status' => 'success'], 200);
+        } else {
+            Log::error('Callback Midtrans gagal, data tidak valid');
+            return response()->json(['status' => 'error', 'message' => 'Invalid data'], 400);
+        }
+    }
     /**
      * Display a listing of the resource.
      */
@@ -41,18 +64,25 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function checkout(Product $product)
     {
-        //
+        return view('front.product.checkout', [
+            'title' => $product->name,
+            'product' => $product
+        ]);
+    }
+
+    public function success(Product $product)
+    {
+        return view('front.product.success', [
+            'title' => $product->name,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.

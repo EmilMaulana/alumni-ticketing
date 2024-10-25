@@ -11,6 +11,10 @@
     <meta property="og:description" content="{{ $meta_desc ?? 'TEKNIK REKAYASA' }}">
     <meta property="og:image" content="{{ $image ?? asset('images/logos/logo_1.png') }}">
     <meta name="google-site-verification" content="MTVEfS0FoMrmc-lB0X5F3ks_DcbFnlK0-NWLjNs01dg" />
+    <script type="text/javascript"
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+
     {{-- icon --}}
     <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
     
