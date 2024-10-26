@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <form wire:submit.prevent="handlePayment" id="paymentForm"
+            <form
                 class="flex flex-col p-[30px] gap-[60px] rounded-[20px] w-[400px] border-2 border-belibang-darker-grey">
                 <div class="w-full flex flex-col gap-4">
                     <p class="font-semibold text-xl">Pembayaran</p>
@@ -59,25 +59,19 @@
                     </div>
                 </div>
                 <div class="w-full flex flex-col gap-4">
-                    <button type="submit" class="rounded-full text-center bg-[#2D68F8] p-[8px_18px] font-semibold hover:bg-[#083297] active:bg-[#062162] transition-all duration-300">Payment Now</button>
+                    <button type="button" onclick="handlePayment()" class="rounded-full text-center bg-[#2D68F8] p-[8px_18px] font-semibold hover:bg-[#083297] active:bg-[#062162] transition-all duration-300">Payment Now</button>
                 </div>
             </form>
         </div>
     </section>
 </div>
 <script>
-    document.getElementById('paymentForm').onsubmit = async function(event) {
-        event.preventDefault();
-        
-        const response = await @this.handlePayment();
-        
-        if (response.error) {
-            alert(response.error);
+    function handlePayment() {
+        var snapToken = '{{ $snapToken }}'; // Ambil token dari controller
+        if (!snapToken) {
+            alert('Snap Token tidak tersedia. Mohon periksa kembali.');
             return;
         }
-        
-        var snapToken = response.snapToken; // Ambil token dari respons
-        var orderId = response.orderId;
 
         // Pastikan Midtrans Snap SDK sudah siap digunakan
         window.snap.pay(snapToken, {
@@ -87,12 +81,22 @@
             },
             onPending: function(result) {
                 console.log('Payment pending:', result);
-                window.location.href = '/pending'; // Halaman pending
+                // Kirim hasil pembayaran ke Livewire untuk diproses
+                @this.handlePaymentResponse(result);
+
+                // Redirect ke halaman pending
+                window.location.href = '/product/checkout/pending'; // Halaman pending
             },
             onError: function(result) {
                 console.log('Payment error:', result);
                 alert('Terjadi kesalahan dalam proses pembayaran. Silakan coba lagi.');
+            },
+            onClose: function() {
+                console.log('Customer closed the popup without finishing the payment');
             }
         });
-    };
+    }
 </script>
+
+
+

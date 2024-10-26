@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'user_id',
+        'amount',
+        'status',
+        'payment_type',
+        'va_number',
+        'qr_code_url',
+        'payment_details'
+    ];
 
     public function user()
     {
@@ -19,4 +29,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    protected $casts = [
+        'payment_details' => 'array'
+    ];
 }

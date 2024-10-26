@@ -8,6 +8,7 @@ use Midtrans\Snap;
 use Illuminate\Support\Facades\Log;
 use App\Livewire\Product\Checkout;
 use Midtrans\Config;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -76,6 +77,27 @@ class ProductController extends Controller
     {
         return view('front.product.success', [
             'title' => $product->name,
+        ]);
+    }
+
+    public function pending(Product $product)
+    {
+
+        // Ambil transaksi terakhir dari user yang sedang login dengan status pending
+        $transaction = Transaction::where('user_id', Auth::id())
+                                ->where('status', 'pending')
+                                ->latest()
+                                ->firstOrFail();
+
+        // Ambil data produk terkait
+        $product = $transaction->product;
+
+        return view('front.product.pending', [
+            'title' => $product->name,
+            'transaction' => $transaction,
+            'product' => $product,
+            'paymentType' => $transaction->payment_type,
+            'amount' => $transaction->amount
         ]);
     }
 

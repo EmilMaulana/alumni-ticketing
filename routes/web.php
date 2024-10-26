@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\SitemapController;
+use App\Livewire\Product\Checkout;
 
 require __DIR__.'/auth.php';
 
@@ -31,6 +32,9 @@ Route::get('/dashboard/profile', function () {
 Route::get('/posts', [FrontController::class, 'post'])->name('front.posts');
 Route::get('/search', [FrontController::class, 'post'])->name('search.index');
 
+Route::post('/payment/notification', [Checkout::class, 'handlePaymentNotification']);
+
+Route::get('/product/checkout/pending', [ProductController::class, 'pending'])->name('product.checkout.pending')->middleware(['auth', 'verified']);
 Route::get('/product/checkout/thank-you', [ProductController::class, 'success'])->name('product.checkout.success')->middleware(['auth', 'verified']);
 Route::get('/product', [ProductController::class, 'frontProduct'])->name('front.product');
 Route::get('/product/{product:slug}', [ProductController::class, 'detail'])->name('product.detail');
