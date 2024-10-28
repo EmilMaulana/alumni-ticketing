@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/f1ecbb1f89.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
     {{-- icon --}}
     <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
     @livewireStyles
@@ -606,10 +608,6 @@
                 console.error(error);
             });
     
-        CKEDITOR.ClassicEditor.create(document.getElementById("overview"), editorConfig)
-            .catch(error => {
-                console.error(error);
-            });
     </script>
     @livewireScripts
 </body>

@@ -23,7 +23,7 @@
                 <div class="flex flex-col p-[30px] gap-5 bg-[#181818] rounded-[20px] w-full md:w-[700px] shrink-0 mt-[90px] h-fit">
                     <div class="flex flex-col gap-4">
                         <p class="font-semibold text-xl">Overview</p>
-                        <p class="text-belibang-grey leading-[30px]">{{ $product->overview }}</p>
+                        <p class="text-belibang-grey leading-[30px]">{!! $product->overview !!}</p>
                     </div>
                 </div>
                 <div class="flex flex-col w-full md:w-[366px] gap-[30px] flex-nowrap overflow-y-visible pe-4">
