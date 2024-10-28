@@ -28,24 +28,32 @@ class Checkout extends Component
             $this->customerEmail = Auth::user()->email;
         }
 
+        // Konfigurasi Midtrans
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
         Config::$isSanitized = true;
         Config::$is3ds = true;
 
-        $this->snapToken = $this->createSnapToken($product);
+        // Inisialisasi snapToken dengan metode pembayaran yang ditentukan
+        $this->paymentType = 'qris'; // Set default payment type, bisa diubah sesuai input pengguna
+        $this->snapToken = $this->createSnapToken($product, $this->paymentType);
+
         if (!$this->snapToken) {
             Log::error('Snap Token tidak tersedia. Mohon periksa konfigurasi Midtrans.');
         }
     }
 
-    public function createSnapToken($product)
+    public function createSnapToken($product, $paymentType)
     {
-        $orderId = Str::uuid();
-        
+        $orderId = 'TEKNIKREKAYASA-' . rand(1000, 9999);
+
+        // Tambahkan service fee sebesar 9000 ke dalam total
+        $serviceFee = 9900;
+        $totalAmount = $product->price + $serviceFee;
+
         $transactionDetails = [
             'order_id' => $orderId,
-            'gross_amount' => $product->price,
+            'gross_amount' => $totalAmount, // Total termasuk service fee
         ];
 
         $itemDetails = [
@@ -54,6 +62,12 @@ class Checkout extends Component
                 'price' => $product->price,
                 'quantity' => 1,
                 'name' => $product->name,
+            ],
+            [
+                'id' => 'service_fee',
+                'price' => $serviceFee,
+                'quantity' => 1,
+                'name' => 'Service Fee',
             ]
         ];
 
@@ -66,6 +80,7 @@ class Checkout extends Component
             'transaction_details' => $transactionDetails,
             'customer_details' => $customerDetails,
             'item_details' => $itemDetails,
+            'payment_type' => $paymentType,
         ];
 
         try {
@@ -76,13 +91,13 @@ class Checkout extends Component
                 'order_id' => $orderId,
                 'product_id' => $product->id,
                 'user_id' => Auth::id(),
-                'amount' => $product->price,
+                'amount' => $totalAmount, // Simpan total amount termasuk service fee
                 'status' => 'pending',
-                'payment_type' => null,
+                'payment_type' => $paymentType,
                 'payment_details' => [
                     'customer_details' => $customerDetails,
                     'item_details' => $itemDetails,
-                    'snap_token' => $snapToken
+                    'snap_token' => $snapToken,
                 ]
             ]);
 
@@ -93,90 +108,6 @@ class Checkout extends Component
         }
     }
 
-    public function handlePaymentResponse($response)
-    {
-        Log::info('Payment Response:', ['response' => $response]);
-        
-        $order_id = $response['order_id'] ?? null;
-        
-        if ($order_id) {
-            $transaction = Transaction::where('order_id', $order_id)->first();
-            
-            if ($transaction) {
-                try {
-                    // Extract data from response
-                    $payment_type = $response['payment_type'] ?? null;
-                    $transaction_status = $response['transaction_status'] ?? null;
-                    $fraud_status = $response['fraud_status'] ?? null;
-                    
-                    // Determine status
-                    $status = 'pending';
-                    if ($transaction_status === 'settlement' || $transaction_status === 'capture') {
-                        $status = 'success';
-                    } elseif (in_array($transaction_status, ['deny', 'expire', 'cancel'])) {
-                        $status = 'failed';
-                    }
-
-                    // Handle QRIS specific data
-                    $qr_code_url = null;
-                    if ($payment_type === 'qris') {
-                        $qr_code_url = $response['actions'][0]['url'] ?? null;
-                    }
-
-                    // Handle VA Numbers
-                    $va_number = null;
-                    if (isset($response['va_numbers'][0]['va_number'])) {
-                        $va_number = $response['va_numbers'][0]['va_number'];
-                    } elseif (isset($response['permata_va_number'])) {
-                        $va_number = $response['permata_va_number'];
-                    }
-
-                    // Prepare payment details
-                    $paymentDetails = [
-                        'transaction_id' => $response['transaction_id'] ?? null,
-                        'transaction_time' => $response['transaction_time'] ?? null,
-                        'transaction_status' => $transaction_status,
-                        'payment_type' => $payment_type,
-                        'gross_amount' => $response['gross_amount'] ?? null,
-                        'va_numbers' => $response['va_numbers'] ?? null,
-                        'qr_code' => $qr_code_url,
-                        'actions' => $response['actions'] ?? null,
-                        'payment_code' => $response['payment_code'] ?? null,
-                        'bill_key' => $response['bill_key'] ?? null,
-                        'biller_code' => $response['biller_code'] ?? null
-                    ];
-
-                    // Update transaction
-                    $transaction->update([
-                        'status' => $status,
-                        'payment_type' => $payment_type,
-                        'va_number' => $va_number,
-                        'qr_code_url' => $qr_code_url,
-                        'payment_details' => $paymentDetails
-                    ]);
-
-                    Log::info('Transaction updated successfully', [
-                        'order_id' => $order_id,
-                        'status' => $status,
-                        'payment_type' => $payment_type,
-                        'qr_code_url' => $qr_code_url
-                    ]);
-
-                    $this->dispatch('paymentStatusUpdated', [
-                        'status' => $status,
-                        'paymentType' => $payment_type,
-                        'paymentDetails' => $paymentDetails
-                    ]);
-
-                } catch (\Exception $e) {
-                    Log::error('Error updating transaction: ' . $e->getMessage(), [
-                        'order_id' => $order_id,
-                        'response' => $response
-                    ]);
-                }
-            }
-        }
-    }
 
     public function handlePaymentNotification(Request $request)
     {
@@ -185,29 +116,40 @@ class Checkout extends Component
         $orderId = $request->order_id;
         $transactionStatus = $request->transaction_status;
         $paymentType = $request->payment_type;
-        $fraudStatus = $request->fraud_status;
 
         $transaction = Transaction::where('order_id', $orderId)->first();
 
         if ($transaction) {
             try {
-                // Determine status
+                // Tentukan status berdasarkan notifikasi
                 $status = 'pending';
-                if ($transactionStatus === 'settlement' || $transactionStatus === 'capture') {
+                if (in_array($transactionStatus, ['settlement', 'capture'])) {
                     $status = 'success';
+                    // Update field sold di tabel product
+                    $this->updateProductSold($transaction->product_id);
                 } elseif (in_array($transactionStatus, ['deny', 'expire', 'cancel'])) {
                     $status = 'failed';
                 }
 
-                // Update payment details
-                $paymentDetails = $transaction->payment_details ?? [];
-                $paymentDetails['notification_received'] = $request->all();
-                $paymentDetails['transaction_status'] = $transactionStatus;
-                $paymentDetails['payment_type'] = $paymentType;
+                // Ambil VA number dari notifikasi jika tersedia
+                $vaNumber = $request->va_numbers[0]['va_number'] ?? $request->permata_va_number ?? null;
+
+                // Ambil qr_code_url dari notifikasi
+                $qrCodeUrl = $request->qr_code_url ?? null;
+
+                // Perbarui transaksi dengan status, va_number, dan qr_code_url
+                $paymentDetails = array_merge($transaction->payment_details ?? [], [
+                    'notification_received' => $request->all(),
+                    'transaction_status' => $transactionStatus,
+                    'payment_type' => $paymentType,
+                    'va_number' => $vaNumber,
+                    'qr_code_url' => $qrCodeUrl // Simpan qr_code_url
+                ]);
 
                 $transaction->update([
                     'status' => $status,
                     'payment_type' => $paymentType,
+                    'va_number' => $vaNumber,
                     'payment_details' => $paymentDetails
                 ]);
 
@@ -228,6 +170,96 @@ class Checkout extends Component
 
         return response()->json(['status' => 'not found'], 404);
     }
+
+    public function handlePaymentResponse($response)
+    {
+        Log::info('Payment Response Received:', ['response' => $response]);
+        
+        $order_id = $response['order_id'] ?? null;
+        
+        if ($order_id) {
+            $transaction = Transaction::where('order_id', $order_id)->first();
+            
+            if ($transaction) {
+                try {
+                    $payment_type = $response['payment_type'] ?? null;
+                    $transaction_status = $response['transaction_status'] ?? null;
+                    
+                    // Tentukan status
+                    $status = 'pending';
+                    if (in_array($transaction_status, ['settlement', 'capture'])) {
+                        $status = 'success';
+                        // Update field sold di tabel product
+                        $this->updateProductSold($transaction->product_id);
+                    } elseif (in_array($transaction_status, ['deny', 'expire', 'cancel'])) {
+                        $status = 'failed';
+                    }
+
+                    // Ambil VA Numbers
+                    $va_number = null;
+                    if (isset($response['va_numbers'][0]['va_number'])) {
+                        $va_number = $response['va_numbers'][0]['va_number'];
+                    } elseif (isset($response['permata_va_number'])) {
+                        $va_number = $response['permata_va_number'];
+                    }
+
+                    // Ambil qr_code_url dari respons jika ada
+                    $qr_code_url = $response['qr_code_url'] ?? null;
+
+                    // Perbarui detail pembayaran
+                    $paymentDetails = array_merge($transaction->payment_details ?? [], [
+                        'transaction_id' => $response['transaction_id'] ?? null,
+                        'transaction_time' => $response['transaction_time'] ?? null,
+                        'transaction _status' => $transaction_status,
+                        'payment_type' => $payment_type,
+                        'va_number' => $va_number,
+                        'qr_code_url' => $qr_code_url, // Simpan qr_code_url
+                    ]);
+
+                    // Update transaction
+                    $transaction->update([
+                        'status' => $status,
+                        'payment_type' => $payment_type,
+                        'va_number' => $va_number,
+                        'payment_details' => $paymentDetails
+                    ]);
+
+                    Log::info('Transaction updated successfully', [
+                        'order_id' => $order_id,
+                        'status' => $status,
+                        'payment_type' => $payment_type
+                    ]);
+
+                    // Dispatch event atau kirim response
+                    $this->dispatch('paymentStatusUpdated', [
+                        'status' => $status,
+                        'paymentType' => $payment_type,
+                        'paymentDetails' => $paymentDetails
+                    ]);
+
+                } catch (\Exception $e) {
+                    Log::error('Error updating transaction: ' . $e->getMessage(), [
+                        'order_id' => $order_id,
+                        'response' => $response
+                    ]);
+                }
+            } else {
+                Log::warning('Transaction not found for order_id: ' . $order_id);
+            }
+        } else {
+            Log::warning('Order ID not found in response');
+        }
+    }
+
+    private function updateProductSold($productId)
+    {
+        $product = Product::find($productId);
+        if ($product) {
+            // Increment field sold
+            $product->increment('sold');
+        }
+    }
+
 
     public function render()
     {

@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 <h3 class="text-2xl text-indigo-950 font-bold">
-                    $9,402,199
+                    Rp {{ number_format($totalRevenue, 0, ',', '.') }}
                 </h3>
                 <p class="text-sm text-gray-500">
-                    Mentor Revenue
+                    Product Revenue
                 </p>
             </div>
             <div class="item-stat bg-white rounded-2xl p-5">

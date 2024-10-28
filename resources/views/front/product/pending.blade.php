@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container mx-auto p-6 my-[120px]">
-    <h1 class="text-2xl font-bold mb-4">Status Pembayaran: Pending</h1>
     <div class="bg-gray-900 shadow-md rounded-lg p-6">
         <!-- Detail Transaksi -->
         <div class="mb-6">
@@ -10,17 +9,11 @@
             <div class="grid grid-cols-2 gap-4 text-sm">
                 <div>
                     <p class="text-gray-600">ID Transaksi:</p>
-                    <p class="font-medium">{{ $transaction->id }}</p>
+                    <p class="font-medium">{{ $transaction->order_id }}</p>
                 </div>
                 <div>
                     <p class="text-gray-600">Tanggal Transaksi:</p>
                     <p class="font-medium">{{ $transaction->created_at->format('d M Y H:i') }}</p>
-                </div>
-                <div>
-                    <p class="text-gray-600">Status:</p>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                        {{ ucfirst($transaction->status) }}
-                    </span>
                 </div>
             </div>
         </div>
@@ -52,37 +45,6 @@
                         <p class="text-gray-600">Total Pembayaran:</p>
                         <p class="font-medium text-gray-600">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</p>
                     </div>
-                </div>
-        
-                <!-- Tombol Bayar -->
-                <div class="mt-4">
-                    @if($transaction->payment_type === 'gopay')
-                        <a href="{{ route('payment.gopay', $transaction->id) }}" 
-                        class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">
-                            <img src="/images/gopay-logo.png" alt="GoPay" class="h-5 w-5 mr-2">
-                            Bayar dengan GoPay
-                        </a>
-                    @elseif($transaction->payment_type === 'bank_transfer')
-                        <div class="space-y-4">
-                            <div class="p-4 bg-white border rounded-lg">
-                                <p class="font-medium text-gray-600">Nomor Virtual Account:</p>
-                                <p class="text-xl font-bold text-gray-600">{{ $transaction->va_number }}</p>
-                                <button onclick="copyVA('{{ $transaction->va_number }}')" 
-                                        class="mt-2 px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded hover:bg-blue-200">
-                                    Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                    @elseif($transaction->payment_type === 'qris')
-                        <div class="space-y-4">
-                            <div class="p-4 bg-white border rounded-lg">
-                                <img src="{{ $transaction->qr_code_url }}" 
-                                    alt="QRIS Code" 
-                                    class=" mx-auto w-48 h-48">
-                                <p class="text-center mt-2">Scan QR Code untuk membayar</p>
-                            </div>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
@@ -122,4 +84,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Fungsi untuk memeriksa status transaksi secara berkala
+    setInterval(function() {
+        fetch(`/api/check-transaction-status?order_id={{ $transaction->order_id }}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Jika status berhasil, arahkan pengguna ke halaman terima kasih
+                    window.location.href = '/product/checkout/thank-you';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }, 5000); // Poll setiap 5 detik
+</script>
+<script>
+    // Fungsi untuk refresh halaman setiap 30 detik jika status masih pending
+    @if($transaction->status === 'pending')
+        setTimeout(function() {
+            window.location.reload();
+        }, 30000);
+    @endif
+
+    // Disable tombol setelah diklik untuk mencegah multiple submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const button = this.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.innerHTML = 'Memverifikasi...';
+    });
+</script>
 @endsection

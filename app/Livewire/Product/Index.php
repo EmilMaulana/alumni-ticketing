@@ -22,16 +22,15 @@ class Index extends Component
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'overview' => 'required|string',
+            'overview' => 'required',
+            'file_product' => 'required',
         ];
 
         // Jika tidak sedang update, image diperlukan (untuk create)
         if (!$isUpdate) {
             $rules['image'] = 'required|image|max:1024'; // image required only for create
-            $rules['file_product'] = 'required'; // image required only for create
         } else {
             $rules['image'] = 'nullable|image|max:1024'; // image optional for update
-            $rules['file_product'] = 'nullable'; // image optional for update
         }
 
         $this->validate($rules);
@@ -49,17 +48,13 @@ class Index extends Component
         // Upload image dengan nama acak
         $imagePath = $this->image->store('products', 'public');
 
-        // Upload file produk dengan nama berdasarkan nama produk
-        $extension = $this->file_product->getClientOriginalExtension(); // Ambil ekstensi file
-        $productFileName = $slug . '.' . $extension; // Buat nama file dari slug produk
-        $productPath = $this->file_product->storeAs('products-file', $productFileName, 'public');
 
         // Simpan data ke database
         Product::create([
             'name' => $this->name,
             'slug' => $slug,
             'image' => $imagePath,
-            'file_product' => $productPath, // Simpan nama file produk yang baru
+            'file_product' => $this->file_product, // Simpan nama file produk yang baru
             'category' => $this->category,
             'price' => $this->price,
             'overview' => $this->overview,
@@ -119,25 +114,9 @@ class Index extends Component
             $product->image = $imagePath;
         }
 
-        // Jika ada file produk baru yang diunggah
-        if ($this->file_product) {
-            // Hapus file produk lama jika ada
-            if ($product->file_product) {
-                Storage::disk('public')->delete($product->file_product);
-            }
-
-            // Buat slug dari nama produk untuk nama file baru
-            $slug = Str::slug($this->name);
-            $extension = $this->file_product->getClientOriginalExtension(); // Ambil ekstensi file baru
-            $productFileName = $slug . '.' . $extension; // Buat nama file dari slug produk
-
-            // Simpan file produk baru
-            $productPath = $this->file_product->storeAs('products-file', $productFileName, 'public');
-            $product->file_product = $productPath;
-        }
-
         // Update data produk lainnya
         $product->name = $this->name;
+        $product->file_product = $this->file_product;
         $product->category = $this->category;
         $product->price = $this->price;
         $product->overview = $this->overview;
@@ -170,9 +149,6 @@ class Index extends Component
                 Storage::disk('public')->delete($product->image);
             }
 
-            if ($product->file_product) {
-                Storage::disk('public')->delete($product->file_product);
-            }
 
             // Hapus produk dari database
             $product->delete();
@@ -192,6 +168,7 @@ class Index extends Component
         // Reset field input dan deleteProductId
         $this->reset([
             'name',     // Field nama produk
+            'file_product',     // Field nama produk
             'image',    // Field gambar produk
             'price',    // Field harga produk
             'overview', // Field overview produk

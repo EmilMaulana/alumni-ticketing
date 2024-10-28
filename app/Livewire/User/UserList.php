@@ -6,25 +6,19 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Transaction;
+use Livewire\WithPagination;
 
 class UserList extends Component
 {
+    use WithPagination;
     public $queryUsers;
-    public $queryPosts;
-    public $postCount;
-    public $userCount;
 
     public function render()
     {   
-        $this->postCount = Post::count();
-        $this->userCount = User::count();
-        $queryUsers = User::latest()->paginate(10);
-        $queryPosts = Post::latest()->paginate(10);
+        $queryUsers = User::latest()->paginate(5);
         return view('livewire.user.user-list', [
             'users' => $queryUsers,
-            'posts' => $queryPosts,
-            'postCount' => $this->postCount,
-            'userCount' => $this->userCount,
 
         ]);
     }

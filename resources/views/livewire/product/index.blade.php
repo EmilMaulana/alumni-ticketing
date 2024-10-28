@@ -65,16 +65,11 @@
                                     <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-40 rounded-lg">
                                 </td>                               
                                 <td class="px-6 py-4">
-                                    @if (in_array(pathinfo(Storage::url($product->file_product), PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
-                                        <!-- Jika file adalah gambar, tampilkan preview -->
-                                        <img src="{{ Storage::url($product->file_product) }}" alt="Preview Image" class="w-32 h-32 object-cover rounded-lg" />
-                                    @else
                                         <!-- Jika file bukan gambar, tampilkan sebagai link download -->
-                                        <a href="{{ Storage::url($product->file_product) }}" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
+                                        <a href="{{ $product->file_product }}" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
                                             <i class="fas fa-download mr-2"></i> <!-- Icon download dari Font Awesome -->
                                             Download Product
                                         </a>
-                                    @endif
                                 </td>                               
                                 <td class=" px-6 py-4">
                                     <div class="flex justify-center">
@@ -139,16 +134,9 @@
                             </div>
                         </div>
                         <div>
-                            <label for="file_product" class="block mb-2 font-medium text-gray-900">Product File</label>
-                            <input type="file" id="file_product" wire:model="file_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" />
-    
-                            <!-- Error handling for image -->
-                            @error('product_file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-    
-                            <!-- Show loading state during file upload -->
-                            <div wire:loading wire:target="product_file" class="text-blue-500 mt-2">
-                                Uploading...
-                            </div>
+                            <label for="file_product" class="block mb-2 font-medium text-gray-900">Product Link</label>
+                            <input type="text" id="file_product" wire:model="file_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product name" required />
+                            @error('file_product') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-6">
                             <label for="category" class="block font-medium text-gray-900">
@@ -169,14 +157,12 @@
                             <input type="text" id="price" wire:model="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product price" required />
                             @error('price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
-                        <div class="mb-6">
-                            <label for="overview" class="block mb-2 font-medium text-gray-900">
-                                Product Overview
-                            </label>
-                            <textarea id="overview" wire:model="overview" rows="10" class="block p-2.5 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 " placeholder="Write product overview..."></textarea>
+                        <div>
+                            <label for="overview" class="mb-6 ">Product Overview</label>
+                            <textarea wire:model="overview" id="overview" name="overview" rows="10" cols="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            @error('overview') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                     </div>
-    
                     <!-- Modal footer -->
                     <div class="block items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="create-modal">
@@ -235,31 +221,11 @@
                             @endif
                         </div>
                         <div>
-                            <label for="file_product" class="block mb-2 font-medium text-gray-900">Product File</label>
-                            <input type="file" id="file_product" wire:model="file_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" />
-    
-                            <!-- Error handling for image -->
-                            @error('product_file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-    
-                            <!-- Show loading state during file upload -->
-                            <div wire:loading wire:target="product_file" class="text-blue-500 mt-2">
-                                Uploading...
-                            </div>
+                            <label for="file_product" class="block mb-2 font-medium text-gray-900">Product Link</label>
+                            <input type="text" id="file_product" wire:model="file_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product name" required />
+                            @error('file_product') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
-                        @if ($oldProductFile)
-                            <div class="mt-2">
-                                @if (in_array(pathinfo(Storage::url($oldProductFile), PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
-                                    <!-- Jika file adalah gambar, tampilkan preview -->
-                                    <img src="{{ Storage::url($oldProductFile) }}" alt="Preview Image" class="w-32 h-32 object-cover rounded-lg" />
-                                @else
-                                    <!-- Jika file bukan gambar, tampilkan sebagai link download -->
-                                    <a href="{{ Storage::url($oldProductFile) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
-                                        <i class="fas fa-download mr-2"></i> <!-- Icon download dari Font Awesome -->
-                                        Download Product
-                                    </a>
-                                @endif
-                            </div>
-                        @endif
+                        
                         <!-- Category -->
                         <div class="mb-6">
                             <label for="category" class="block font-medium text-gray-900">Choose a category</label>

@@ -82,6 +82,38 @@
                             Posts
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('transactions.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('transactions.list') ? 'text-violet-700' : 'text-indigo-950' }}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.6992 18.9799H7.29922C6.87922 18.9799 6.40922 18.6499 6.26922 18.2499L2.12922 6.66986C1.53922 5.00986 2.22922 4.49986 3.64922 5.51986L7.54922 8.30986C8.19922 8.75986 8.93922 8.52986 9.21922 7.79986L10.9792 3.10986C11.5392 1.60986 12.4692 1.60986 13.0292 3.10986L14.7892 7.79986C15.0692 8.52986 15.8092 8.75986 16.4492 8.30986L20.1092 5.69986C21.6692 4.57986 22.4192 5.14986 21.7792 6.95986L17.7392 18.2699C17.5892 18.6499 17.1192 18.9799 16.6992 18.9799Z"
+                                    stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path opacity="0.34" d="M6.5 22H17.5" stroke="#292D32" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path opacity="0.34" d="M9.5 14H14.5" stroke="#292D32" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                            Transactions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('order.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('order.listt') ? 'text-violet-700' : 'text-indigo-950' }}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.6992 18.9799H7.29922C6.87922 18.9799 6.40922 18.6499 6.26922 18.2499L2.12922 6.66986C1.53922 5.00986 2.22922 4.49986 3.64922 5.51986L7.54922 8.30986C8.19922 8.75986 8.93922 8.52986 9.21922 7.79986L10.9792 3.10986C11.5392 1.60986 12.4692 1.60986 13.0292 3.10986L14.7892 7.79986C15.0692 8.52986 15.8092 8.75986 16.4492 8.30986L20.1092 5.69986C21.6692 4.57986 22.4192 5.14986 21.7792 6.95986L17.7392 18.2699C17.5892 18.6499 17.1192 18.9799 16.6992 18.9799Z"
+                                    stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path opacity="0.34" d="M6.5 22H17.5" stroke="#292D32" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path opacity="0.34" d="M9.5 14H14.5" stroke="#292D32" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                            My Order
+                        </a>
+                    </li>
                     @if ( Auth::user()->role_id == 3 )
                     <li>
                         <a href="{{ route('categories.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('categories.list') ? 'text-violet-700' : 'text-indigo-950' }}">
@@ -235,6 +267,40 @@
                                     </svg>
 
                                     Posts
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('transactions.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('transactions.list') ? 'text-violet-700' : 'text-indigo-950' }}">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.6992 18.9799H7.29922C6.87922 18.9799 6.40922 18.6499 6.26922 18.2499L2.12922 6.66986C1.53922 5.00986 2.22922 4.49986 3.64922 5.51986L7.54922 8.30986C8.19922 8.75986 8.93922 8.52986 9.21922 7.79986L10.9792 3.10986C11.5392 1.60986 12.4692 1.60986 13.0292 3.10986L14.7892 7.79986C15.0692 8.52986 15.8092 8.75986 16.4492 8.30986L20.1092 5.69986C21.6692 4.57986 22.4192 5.14986 21.7792 6.95986L17.7392 18.2699C17.5892 18.6499 17.1192 18.9799 16.6992 18.9799Z"
+                                            stroke="#292D32" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path opacity="0.34" d="M6.5 22H17.5" stroke="#292D32" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path opacity="0.34" d="M9.5 14H14.5" stroke="#292D32" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                    Transactions
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('order.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('order.list') ? 'text-violet-700' : 'text-indigo-950' }}">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.6992 18.9799H7.29922C6.87922 18.9799 6.40922 18.6499 6.26922 18.2499L2.12922 6.66986C1.53922 5.00986 2.22922 4.49986 3.64922 5.51986L7.54922 8.30986C8.19922 8.75986 8.93922 8.52986 9.21922 7.79986L10.9792 3.10986C11.5392 1.60986 12.4692 1.60986 13.0292 3.10986L14.7892 7.79986C15.0692 8.52986 15.8092 8.75986 16.4492 8.30986L20.1092 5.69986C21.6692 4.57986 22.4192 5.14986 21.7792 6.95986L17.7392 18.2699C17.5892 18.6499 17.1192 18.9799 16.6992 18.9799Z"
+                                            stroke="#292D32" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path opacity="0.34" d="M6.5 22H17.5" stroke="#292D32" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path opacity="0.34" d="M9.5 14H14.5" stroke="#292D32" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                    My Order
                                 </a>
                             </li>
                             @if ( Auth::user()->role_id == 3 )
@@ -415,12 +481,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
     <script>
-        CKEDITOR.ClassicEditor.create(document.getElementById("body"), 
-        
-        {
+        const editorConfig = {
             toolbar: {
                 items: [
-                    'exportPDF','exportWord', '|',
+                    'exportPDF', 'exportWord', '|',
                     'findAndReplace', 'selectAll', '|',
                     'heading', '|',
                     'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
@@ -470,7 +534,7 @@
                 supportAllValues: true
             },
             fontSize: {
-                options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+                options: [10, 12, 14, 'default', 18, 20, 22],
                 supportAllValues: true
             },
             htmlSupport: {
@@ -504,7 +568,7 @@
                     {
                         marker: '@',
                         feed: [
-                            '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                            '@apple', '@bears', '@brownie', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
                             '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
                             '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
                             '@sugar', '@sweet', '@topping', '@wafer'
@@ -527,7 +591,7 @@
                 'RevisionHistory',
                 'Pagination',
                 'WProofreader',
-                'MathType',
+                'MathType ',
                 'SlashCommand',
                 'Template',
                 'DocumentOutline',
@@ -535,7 +599,17 @@
                 'TableOfContents',
                 'PasteFromOfficeEnhanced'
             ]
-        });
+        };
+    
+        CKEDITOR.ClassicEditor.create(document.getElementById("body"), editorConfig)
+            .catch(error => {
+                console.error(error);
+            });
+    
+        CKEDITOR.ClassicEditor.create(document.getElementById("overview"), editorConfig)
+            .catch(error => {
+                console.error(error);
+            });
     </script>
     @livewireScripts
 </body>

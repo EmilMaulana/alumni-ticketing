@@ -27,7 +27,18 @@
     </section>
     @if (Auth::user()->role_id == 3)
         @livewire('statistic.statistic')
-        @livewire('user.user-list')
+        <section class="header px-7 py-5">
+            <div class="grid grid-cols-2 gap-4">
+                @livewire('user.user-list')
+                @livewire('dashboard.post-list')
+            </div>
+        </section>
+        <section class="header px-7 py-5">
+            @livewire('dashboard.transactions-list')
+        </section>
+        <section class="header px-7 py-5">
+            @livewire('product.custom-product-list')
+        </section>
     @else
         <section class="header px-7 pt-10">
             <div class="flex flex-col gap-y-5 md:flex-row md:items-center justify-start md:justify-between header-section w-full">

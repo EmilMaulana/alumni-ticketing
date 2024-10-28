@@ -13,7 +13,9 @@
     <meta name="google-site-verification" content="MTVEfS0FoMrmc-lB0X5F3ks_DcbFnlK0-NWLjNs01dg" />
     <script type="text/javascript"
         src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+        data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
+    </script>
+    
 
     {{-- icon --}}
     <link rel="icon" href="{{ asset('images/logos/logo_1.png') }}" width="250px;" type="image/png">
@@ -39,10 +41,10 @@
             <div class="flex items-center gap-[26px]">
                 <!-- Menu -->
                 <ul id="menu" class="hidden lg:flex gap-6 items-center">
-                    <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">
+                    <li class="{{ request()->routeIs('index') ? 'text-white' : 'text-belibang-grey' }} hover:text-belibang-light-grey transition-all duration-300">
                         <a href="/">Beranda</a>
                     </li>
-                    <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300">
+                    <li class="{{ request()->routeIs('front.posts') ? 'text-white' : 'text-belibang-grey' }} hover:text-belibang-light-grey transition-all duration-300">
                         <a href="/posts">Artikel</a>
                     </li>
                     <li class="relative">
@@ -62,10 +64,10 @@
                         </div>
                     </li>
                     <li class="w-full">
-                        <a href="{{ route('front.category') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Kategori</a>
+                        <a href="{{ route('front.category') }}" class="block w-full text-left {{ request()->routeIs('front.category') ? 'text-white' : 'text-belibang-grey' }} hover:text-white py-2">Kategori</a>
                     </li>
                     <li class="w-full">
-                        <a href="{{ route('front.product') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Produk</a>
+                        <a href="{{ route('front.product') }}" class="block w-full text-left {{ request()->routeIs('front.product', 'product.detail', 'product.checkout') ? 'text-white' : 'text-belibang-grey' }} hover:text-white py-2">Produk</a>
                     </li>
                 </ul>
             </div>

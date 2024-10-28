@@ -1,12 +1,12 @@
 <div>
     {{-- Do your work, then step back. --}}
     <header class="w-full pt-[74px] pb-[103px] relative z-0">
-        <div class="container max-w-[1130px] mx-auto flex flex-col items-center justify-center z-10">
+        <div class="container max-w-[1130px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-10">
             <div class="flex flex-col gap-4 mt-7 z-10">
                 <p class="bg-[#2A2A2A] font-semibold text-belibang-grey rounded-[4px] p-[8px_16px] w-fit">{{ ucwords($product->category) }}</p>
                 <h1 class="font-semibold text-[55px]">{{ $product->name }}</h1>
             </div>
-        </div>
+        </div>        
         <div class="background-image w-full h-full absolute top-0 overflow-hidden z-0">
             <img src="{{ Storage::url($product->image) }}" class="w-full h-full object-cover" alt="hero image">
         </div>

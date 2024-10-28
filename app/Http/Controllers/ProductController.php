@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Midtrans\Snap;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Livewire\Product\Checkout;
 use Midtrans\Config;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Transaction as MidtransTransaction;
 
 class ProductController extends Controller
 {
@@ -24,7 +25,7 @@ class ProductController extends Controller
 
         if ($response) {
             Log::info('Data callback valid, memproses status transaksi');
-            $checkout->handleTransactionStatus($response);
+            $checkout->handlePaymentResponse($response);
             return response()->json(['status' => 'success'], 200);
         } else {
             Log::error('Callback Midtrans gagal, data tidak valid');
@@ -80,13 +81,11 @@ class ProductController extends Controller
         ]);
     }
 
-    public function pending(Product $product)
+    public function pending($order_id)
     {
-
-        // Ambil transaksi terakhir dari user yang sedang login dengan status pending
+        // Ambil transaksi berdasarkan order_id dan user yang sedang login
         $transaction = Transaction::where('user_id', Auth::id())
-                                ->where('status', 'pending')
-                                ->latest()
+                                ->where('order_id', $order_id)
                                 ->firstOrFail();
 
         // Ambil data produk terkait
@@ -100,6 +99,9 @@ class ProductController extends Controller
             'amount' => $transaction->amount
         ]);
     }
+
+    
+
 
     /**
      * Show the form for editing the specified resource.

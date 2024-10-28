@@ -12,4 +12,18 @@ class DashboardController extends Controller
             'title' => 'Dashboard Teknik Rekayasa'
         ]);
     }
+
+    public function transactions()
+    {
+        return view('dashboard.transactions.index', [
+            'title' => 'My Transactions'
+        ]);
+    }
+
+    public function order()
+    {
+        return view('dashboard.order.index', [
+            'title' => 'My Order'
+        ]);
+    }
 }
