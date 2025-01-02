@@ -30,6 +30,11 @@ class Transaction extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function check()
+    {
+        return $this->hasOne(Check::class);
+    }
+
     protected $casts = [
         'payment_details' => 'array'
     ];

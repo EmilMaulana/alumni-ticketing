@@ -15,7 +15,7 @@ class TransactionsList extends Component
     {
         return view('livewire.transactions-list', [
             // Ambil transaksi berdasarkan user yang sedang login, urutkan dari yang terbaru dan paginate
-            'transactions' => Transaction::where('user_id', Auth::id())->latest()->paginate(5),
+            'transactions' => Transaction::where('user_id', Auth::id())->latest()->paginate(10),
         ]);
     }
 }

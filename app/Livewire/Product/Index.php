@@ -23,14 +23,14 @@ class Index extends Component
             'category' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'overview' => 'required|string', // Validasi overview
-            'file_product' => 'required',
+            // 'file_product' => 'required',
         ];
 
         // Jika tidak sedang update, image diperlukan (untuk create)
         if (!$isUpdate) {
-            $rules['image'] = 'required|image|max:1024'; // image required only for create
+            $rules['image'] = 'required|image'; // image required only for create
         } else {
-            $rules['image'] = 'nullable|image|max:1024'; // image optional for update
+            $rules['image'] = 'nullable|image'; // image optional for update
         }
 
         $this->validate($rules);
@@ -71,10 +71,10 @@ class Index extends Component
         $this->resetForm();
 
         // Flash message
-        session()->flash('success', 'Product has been successfully created.');
+        session()->flash('success', 'Agenda has been successfully created.');
 
         // Redirect ke halaman yang sama (merefresh halaman)
-        return redirect()->back();
+        return redirect()->route('product.list');
     }
 
 
@@ -87,7 +87,7 @@ class Index extends Component
         $this->price = $product->price;
         $this->overview = $product->overview;
         $this->image = null; 
-        $this->file_product = $product->file_product;
+        // $this->file_product = $product->file_product;
         $this->oldImage = $product->image; 
         $this->oldProductFile = $product->file_product; 
     }
@@ -107,7 +107,7 @@ class Index extends Component
         }
 
         $product->name = $this->name;
-        $product->file_product = $this->file_product;
+        // $product->file_product = $this->file_product;
         $product->category = $this->category;
         $product->price = $this->price;
         $product->overview = $this->overview;
@@ -145,7 +145,7 @@ class Index extends Component
     {
         $this->reset([
             'name',
-            'file_product',
+            // 'file_product',
             'image',
             'price',
             'overview',

@@ -3,19 +3,19 @@
         <div class="flex flex-col lg:flex-row justify-between">
             <div class="flex flex-col justify-between">
                 <div class="flex shrink-0">
-                    <img src="{{ asset('images/logos/logo.png') }}" alt="logo" class="h-10">
+                    <img src="{{ asset('images/weone-light.png') }}" alt="logo" class="h-10">
                 </div>
                 <div class="flex flex-col gap-[10px] mt-4">
                     <p class="font-semibold text-sm">Connect with us</p>
                     <div class="flex items-center gap-5">
-                        <a href="https://www.instagram.com/teknikrekayasa_" target="_blank"
+                        <a href="https://www.instagram.com/alumni_smkn1kawali" target="_blank"
                             class="w-9 h-9 flex shrink-0 rounded-full overflow-hidden border border-[#595959] items-center justify-center">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@emilmaul__" target="_blank"
+                        {{-- <a href="https://www.tiktok.com/@emilmaul__" target="_blank"
                             class="w-9 h-9 flex shrink-0 rounded-full overflow-hidden border border-[#595959] items-center justify-center">
                             <i class="fa-brands fa-tiktok"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -23,33 +23,12 @@
                 <div class="flex flex-col gap-8">
                     <p class="font-semibold text-sm">Browse</p>
                     <div class="flex flex-col gap-[18px]">
-                        <a href="" class="text-belibang-grey font-semibold text-xs">All Products</a>
-                        <a href="" class="text-belibang-grey font-semibold text-xs">Courses</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-8">
-                    <p class="font-semibold text-sm">Platform</p>
-                    <div class="flex flex-col gap-[18px]">
-                        <a href="" class="text-belibang-grey font-semibold text-xs">Affiliate program</a>
-                        <a href="" class="text-belibang-grey font-semibold text-xs">Terms & Licensing</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-8">
-                    <p class="font-semibold text-sm">Customer service</p>
-                    <div class="flex flex-col gap-[18px]">
-                        <a href="" class="text-belibang-grey font-semibold text-xs">FAQ</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-8">
-                    <p class="font-semibold text-sm">Contact us</p>
-                    <div class="flex flex-col gap-[18px]">
-                        <a href="/about" class="text-belibang-grey font-semibold text-xs">About us</a>
-                        <a href="" class="text-belibang-grey font-semibold text-xs">Company</a>
-                        <a href="" class="text-belibang-grey font-semibold text-xs">Careers</a>
+                        <a href="https://www.teknikrekayasa.com/product" target="_blank" class="text-belibang-grey font-semibold text-xs">All Products</a>
+                        <a href="https://www.teknikrekayasa.com/" target="_blank" class="text-belibang-grey font-semibold text-xs">Courses</a>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="text-[10px] text-[#595959] text-center">© 2024, TEKNIK REKAYASA.</p>
+        <p class="text-[14px] text-[#595959] text-center">© 2024, WeOne. Made With <i class="fas fa-heart text-red-700"></i> by <a href="https://www.instagram.com/emilmaul_" target="_blank" class="text-gray-300">Emil Maulana </a></p>
     </div>
 </footer>

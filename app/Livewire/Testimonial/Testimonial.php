@@ -5,15 +5,18 @@ namespace App\Livewire\Testimonial;
 use App\Models\Testimonial as ModelsTestimonial;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
 
 class Testimonial extends Component
 {
     public $body;
     public $testimonials;
+    public $transaction;
 
     public function mount()
     {
         $this->loadTestimonials(); // Load testimonials saat komponen dimuat
+        // Ambil transaksi berdasarkan ID yang diberikan
     }
 
     public function loadTestimonials()
@@ -24,7 +27,21 @@ class Testimonial extends Component
 
     public function render()
     {
-        return view('livewire.testimonial.testimonial');
+        // Ambil semua transaksi pengguna
+        $transactions = Transaction::where('user_id', Auth::id())->latest()->paginate(3);
+
+        // Ambil transaksi terbaru dengan status 'is_checked'
+        $checkedTransaction = Transaction::where('user_id', Auth::id())
+            ->whereHas('check', function ($query) {
+                $query->where('is_checked', true);
+            })
+            ->latest()
+            ->first();
+
+        return view('livewire.testimonial.testimonial', [
+            'transactions' => $transactions,
+            'checkedTransaction' => $checkedTransaction,
+        ]);
     }
 
     public function store()

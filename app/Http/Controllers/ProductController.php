@@ -38,7 +38,14 @@ class ProductController extends Controller
     public function index()
     {
         return view('dashboard.product.index', [
-            'title' => 'Product List'
+            'title' => 'Daftar Agenda'
+        ]);
+    }
+
+    public function kehadiran()
+    {
+        return view('dashboard.product.kehadiran', [
+            'title' => 'Daftar Kehadiran Peserta'
         ]);
     }
 
@@ -48,7 +55,7 @@ class ProductController extends Controller
     public function frontProduct()
     {
         return view('front.product.product', [
-            'title' => 'Semua Produk'
+            'title' => 'Semua Agenda'
         ]);
     }
 

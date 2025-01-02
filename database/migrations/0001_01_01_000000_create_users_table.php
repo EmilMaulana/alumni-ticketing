@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('wa')->unique();
+            $table->string('angkatan');
+            $table->string('jurusan');
             $table->unsignedBigInteger('role_id')->default(1);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->text('about_me')->nullable();

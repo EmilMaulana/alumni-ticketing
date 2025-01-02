@@ -27,7 +27,7 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     @stack('after-style')
-    <title>{{ $title ?? 'TEKNIK REKAYASA' }}</title>
+    <title>{{ $title ?? 'WeOne' }}</title>
 </head>
 
 <body class="bg-belibang-black font-poppins text-white">
@@ -35,8 +35,8 @@
     <nav class="w-full fixed top-0 bg-[#00000010] backdrop-blur-lg z-10">
         <div class="container max-w-[1130px] mx-auto flex items-center justify-between h-[74px] px-3">
             <a href="/" class="flex items-center gap-2">
-                <img src="{{asset('images/logos/logo_1.png')}}" alt="logo" class="w-[40px] h-auto">
-                <span class="font-semibold">TEKNIK REKAYASA</span>
+                <img src="{{asset('images/weone-light.png')}}" alt="logo" class="w-[180px] h-auto">
+                {{-- <span class="font-semibold">TEKNIK REKAYASA</span> --}}
             </a>
             <div class="flex items-center gap-[26px]">
                 <!-- Menu -->
@@ -44,30 +44,8 @@
                     <li class="{{ request()->routeIs('index') ? 'text-white' : 'text-belibang-grey' }} hover:text-belibang-light-grey transition-all duration-300">
                         <a href="/">Beranda</a>
                     </li>
-                    <li class="{{ request()->routeIs('front.posts') ? 'text-white' : 'text-belibang-grey' }} hover:text-belibang-light-grey transition-all duration-300">
-                        <a href="/posts">Artikel</a>
-                    </li>
-                    <li class="relative">
-                        <button id="menu-button" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 flex items-center gap-1">
-                            <span>Kelas</span>
-                            <img src="{{asset('images/icons/arrow-down.svg')}}" alt="icon">
-                        </button>
-                        <div class="dropdown-menu hidden absolute top-[52px] w-[526px] rounded-[20px] bg-[#1E1E1E] p-4 gap-[10px] grid grid-cols-2 z-10">
-                            <!-- Dropdown items -->
-                            <div class="flex justify-between items-center rounded-2xl p-[12px_16px] border border-[#414141] hover:bg-[#2A2A2A] transition-all duration-300">
-                                <a href="/" class="flex items-center">
-                                    <img src="{{asset('images/ic_course.svg')}}" alt="icon" class="w-[58px]">
-                                    <span>SEGERA HADIR</span>
-                                </a>
-                            </div>
-                            <!-- Repeat for other Kelas -->
-                        </div>
-                    </li>
                     <li class="w-full">
-                        <a href="{{ route('front.category') }}" class="block w-full text-left {{ request()->routeIs('front.category') ? 'text-white' : 'text-belibang-grey' }} hover:text-white py-2">Kategori</a>
-                    </li>
-                    <li class="w-full">
-                        <a href="{{ route('front.product') }}" class="block w-full text-left {{ request()->routeIs('front.product', 'product.detail', 'product.checkout') ? 'text-white' : 'text-belibang-grey' }} hover:text-white py-2">Produk</a>
+                        <a href="{{ route('front.product') }}" class="block w-full text-left {{ request()->routeIs('front.product', 'product.detail', 'product.checkout') ? 'text-white' : 'text-belibang-grey' }} hover:text-white py-2">Agenda</a>
                     </li>
                 </ul>
             </div>
@@ -97,32 +75,8 @@
                 <a href="/" class="block w-full text-left text-belibang-grey hover:text-white py-2 border-b border-belibang-dark-grey">Beranda</a>
             </li>
             <hr class="py-2">
-            <li class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 pb-1">
-                <a href="/posts">Artikel</a>
-            </li>
-            <hr class="py-2">
-            <li class="w-full relative pb-1">
-                <button id="menu-kelas-btn" class="text-belibang-grey hover:text-belibang-light-grey transition-all duration-300 flex items-center gap-1">
-                    <span>Kelas</span>
-                    <img src="{{asset('images/icons/arrow-down.svg')}}" alt="icon">
-                </button>
-                <div id="menu-kelas-dropdown" class="dropdown-menu hidden absolute top-[52px] w-[526px] rounded-[20px] bg-[#1E1E1E] p-4 gap-[10px] grid grid-cols-2 z-10">
-                    <!-- Dropdown items -->
-                    <div class="flex justify-between items-center rounded-2xl p-[12px_16px] border border-[#414141] hover:bg-[#2A2A2A] transition-all duration-300">
-                        <a href="/" class="flex items-center">
-                            <img src="{{asset('images/ic_course.svg')}}" alt="icon" class="w-[48px]">
-                            <span>SEGERA HADIR</span>
-                        </a>
-                    </div>
-                    <!-- Repeat for other Kelas -->
-                </div>
-            </li>
-            <hr class="py-2">
             <li class="w-full pb-1">
-                <a href="{{ route('front.category') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Kategori</a>
-            </li>
-            <li class="w-full pb-1">
-                <a href="{{ route('front.product') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Produk</a>
+                <a href="{{ route('front.product') }}" class="block w-full text-left text-belibang-grey hover:text-white py-2">Agenda</a>
             </li>
             <hr class="py-2">
             @guest
@@ -147,26 +101,13 @@
 
     <x-footer/>
 
+    
     @stack('before-script')
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     @stack('after-script')
-    <script>
-        document.getElementById('menu-kelas-btn').addEventListener('click', function() {
-            const dropdownMenu = document.getElementById('menu-kelas-dropdown');
-            dropdownMenu.classList.toggle('hidden');
-        });
-
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-    
-        menuToggle.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    
-    </script>
     <script>
         const searchInput = document.getElementById('searchInput');
         const resetButton = document.getElementById('resetButton');
@@ -183,23 +124,12 @@
             resetButton.classList.add('hidden');
         });
     </script>
-    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuButton = document.getElementById('menu-button');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
     
-            menuButton.addEventListener('click', function () {
-                dropdownMenu.classList.toggle('hidden');
-            });
-    
-            // Close the dropdown menu when clicking outside of it
-            document.addEventListener('click', function (event) {
-                const isClickInside = menuButton.contains(event.target) || dropdownMenu.contains(event.target);
-                if (!isClickInside) {
-                    dropdownMenu.classList.add('hidden');
-                }
-            });
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
     <script src="https://kit.fontawesome.com/f1ecbb1f89.js" crossorigin="anonymous"></script>

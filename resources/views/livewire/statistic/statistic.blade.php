@@ -29,7 +29,7 @@
                     Rp {{ number_format($totalRevenue, 0, ',', '.') }}
                 </h3>
                 <p class="text-sm text-gray-500">
-                    Product Revenue
+                    Tiket Terjual
                 </p>
             </div>
             <div class="item-stat bg-white rounded-2xl p-5">
@@ -74,10 +74,10 @@
                     {{ $totalUsers }}
                 </h3>
                 <p class="text-sm text-gray-500">
-                    Students
+                    Alumni
                 </p>
             </div>
-            <div class="item-stat bg-white rounded-2xl p-5">
+            {{-- <div class="item-stat bg-white rounded-2xl p-5">
                 <div class="flex flex-row mb-7 justify-between">
                     <div class="bg-orange-500 rounded-full w-fit p-3">
                         <i class="fa-solid fa-upload px-1 py-1 text-white"></i>
@@ -103,8 +103,8 @@
                 <p class="text-sm text-gray-500">
                     Posts Published
                 </p>
-            </div>
-            <div class="item-stat bg-white rounded-2xl p-5">
+            </div> --}}
+            {{-- <div class="item-stat bg-white rounded-2xl p-5">
                 <div class="flex flex-row mb-7 justify-between">
                     <div class="bg-cyan-700 rounded-full w-fit p-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -144,7 +144,7 @@
                 <p class="text-sm text-gray-500">
                     Posts Categories
                 </p>
-            </div>
+            </div> --}}
         </div>
     </section>
 </div>

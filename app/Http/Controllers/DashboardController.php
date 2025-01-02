@@ -9,21 +9,21 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-            'title' => 'Dashboard Teknik Rekayasa'
+            'title' => 'Dashboard'
         ]);
     }
 
     public function transactions()
     {
         return view('dashboard.transactions.index', [
-            'title' => 'My Transactions'
+            'title' => 'Transaksi'
         ]);
     }
 
     public function order()
     {
         return view('dashboard.order.index', [
-            'title' => 'My Order'
+            'title' => 'Order'
         ]);
     }
 }

@@ -5,7 +5,7 @@
             class="flex flex-col gap-y-5 md:flex-row md:items-center justify-start md:justify-between header-section w-full">
             <div class="title">
                 <h1 class="text-2xl text-indigo-950 font-bold mb-1">
-                    Product
+                    Agenda
                 </h1>
             </div>
             <div class="flex flex-col gap-y-3 gap-x-3 md:flex-row">
@@ -13,7 +13,7 @@
                     <i class="fas fa-refresh"></i> Refresh
                 </a>
                 <button data-modal-target="create-modal" data-modal-toggle="create-modal" class="w-full md:w-fit text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700" type="button">
-                    <i class="fas fa-plus"></i> Add Product
+                    <i class="fas fa-plus"></i> Tambah Agenda
                 </button>
             </div>  
         </div>
@@ -35,13 +35,13 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Product Name
+                            Nama Agenda
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Product Image
+                            Agenda Image
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Product File
+                            Deskripsi
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -51,8 +51,8 @@
                 <tbody>
                     @if($products->isEmpty())
                         <tr class="bg-white border-b text-gray-900">
-                            <td colspan="3" class="px-6 py-4 text-center">
-                                Tidak ada data produk.
+                            <td colspan="4" class="px-6 py-4 text-center">
+                                Tidak ada data agenda.
                             </td>
                         </tr>
                     @else
@@ -62,14 +62,10 @@
                                     {{ $product->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-40 rounded-lg">
+                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-60 rounded-lg object-cover">
                                 </td>                               
                                 <td class="px-6 py-4">
-                                        <!-- Jika file bukan gambar, tampilkan sebagai link download -->
-                                        <a href="{{ $product->file_product }}" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
-                                            <i class="fas fa-download mr-2"></i> <!-- Icon download dari Font Awesome -->
-                                            Download Product
-                                        </a>
+                                    {!! $product->overview !!}
                                 </td>                               
                                 <td class=" px-6 py-4">
                                     <div class="flex justify-center">
@@ -93,13 +89,13 @@
     </section>
     <!-- Create modal -->
     <div wire:ignore.self id="create-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="relative p-4 w-full max-w-4xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow ">
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900">
-                        Add Product
+                        Tambah Agenda
                     </h3>
                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -114,24 +110,17 @@
                     <div class="p-4 md:p-5 space-y-4">
                         <!-- Product Name -->
                         <div>
-                            <label for="name" class="block mb-2 font-medium text-gray-900">Product Name</label>
-                            <input type="text" id="name" wire:model="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product name" required />
+                            <label for="name" class="block mb-2 font-medium text-gray-900">Nama Agenda</label>
+                            <input type="text" id="name" wire:model="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter agenda name" required />
                             @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                 
                         <!-- Product Image -->
                         <div>
-                            <label for="image" class="block mb-2 font-medium text-gray-900">Product Image</label>
+                            <label for="image" class="block mb-2 font-medium text-gray-900">Image</label>
                             <input type="file" id="image" wire:model="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" />
                             @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             <div wire:loading wire:target="image" class="text-blue-500 mt-2">Uploading...</div>
-                        </div>
-                
-                        <!-- Product Link -->
-                        <div>
-                            <label for="file_product" class="block mb-2 font-medium text-gray-900">Product Link</label>
-                            <input type="text" id="file_product" wire:model="file_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product link" required />
-                            @error('file_product') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                 
                         <!-- Product Category -->
@@ -139,24 +128,35 @@
                             <label for="category" class="block font-medium text-gray-900">Choose a category</label>
                             <select id="category" wire:model="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <option value="">Choose category</option>
-                                <option value="website">Website</option>
-                                <option value="aplikasi sederhana">Aplikasi Sederhana</option>
-                                <option value="program sederhana">Program Sederhana</option>
-                                <option value="data science">Data Science</option>
+                                <option value="Reguler">Reguler</option>
+                                <option value="Pre-Sale 1">Pre-Sale 1</option>
+                                <option value="Pre-Sale 2">Program Sederhana</option>
+                                <option value="VVIP">VVIP</option>
                             </select>
                             @error('category') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
+
+                        {{-- <!-- Product Category -->
+                        <div class="mb-6">
+                            <label for="status" class="block font-medium text-gray-900">Status</label>
+                            <select id="status" wire:model="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option value="">Choose Status</option>
+                                <option value="Dibuka">Dibuka</option>
+                                <option value="Ditutup">Ditutup</option>
+                            </select>
+                            @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div> --}}
                 
                         <!-- Product Price -->
                         <div>
                             <label for="price" class="block mb-2 font-medium text-gray-900">Price (Rp.)</label>
-                            <input type="number" id="price" wire:model="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter product price" required />
+                            <input type="number" id="price" wire:model="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter agenda price" required />
                             @error('price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                 
                         <!-- Product Overview -->
                         <div wire:ignore>
-                            <label for="overview" class="mb-6">Product Overview</label>
+                            <label for="overview" class="mb-6">Deskripsi</label>
                             <input id="overview" type="hidden" wire:model="overview">
                             <trix-editor input="overview" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></trix-editor>
                             @error('overview') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -238,7 +238,7 @@
                         </div>
 
                         <!-- Product Overview -->
-                        <div wire:ignore.self>
+                        <div wire:ignore>
                             <label for="overview" class="mb-6">Product Overview</label>
                             <input id="overview" type="hidden" wire:model="overview">
                             <trix-editor input="overview" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></trix-editor>
@@ -261,6 +261,27 @@
     </div>
 </div>
 <script>
+    // document.addEventListener("livewire:load", () => {
+    //     // Watch for modal open event to set Trix Editor content
+    //     Livewire.hook('message.processed', (message, component) => {
+    //         if (component.fingerprint.name === 'product.index') { // Gunakan nama lengkap komponen
+    //             const trixInput = document.querySelector('#overview');
+    //             const editor = document.querySelector('trix-editor');
+
+    //             if (trixInput && editor) {
+    //                 // Set nilai dari Livewire ke hidden input dan editor Trix
+    //                 trixInput.value = @this.get('overview');
+    //                 editor.editor.loadHTML(trixInput.value);
+    //             }
+    //         }
+    //     });
+    // });
+
+    // // Update Livewire overview value when Trix Editor content changes
+    // document.addEventListener('trix-change', function(event) {
+    //     @this.set('overview', event.target.innerHTML);
+    // });
+
     document.addEventListener("livewire:load", () => {
         // Watch for modal open event to set Trix Editor content
         Livewire.hook('message.processed', (message, component) => {

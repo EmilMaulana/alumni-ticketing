@@ -2,10 +2,10 @@
     <section id="checkout" class="container max-w-[1130px] mx-auto my-[120px] px-4">
         <div class="w-full flex flex-col lg:flex-row justify-center gap-[30px]">
             <div class="product-info flex flex-col gap-4 w-full lg:w-[400px] h-fit mt-[18px]">
-                <h1 class="font-semibold text-[32px] text-center lg:text-left">Checkout Product</h1>
+                <h1 class="font-semibold text-[32px] text-center lg:text-left">Checkout Tiket</h1>
                 <div class="product-detail flex flex-col gap-3">
-                    <div class="thumbnail w-full h-[255px] flex shrink-0 rounded-[20px] overflow-hidden">
-                        <img src="{{ Storage::url($product->image) }}" class="w-full h-full object-cover" alt="thumbnail">
+                    <div class="thumbnail w-full flex shrink-0 rounded-[20px] overflow-hidden">
+                        <img src="{{ Storage::url($product->image) }}" class="h-[230px] object-cover " alt="thumbnail">
                     </div>
                     <div class="product-title flex flex-col gap-[30px]">
                         <div class="flex flex-col gap-3">
@@ -61,11 +61,11 @@
                     </div>
                     <div class="flex justify-between items-center p-[12px_20px] rounded-lg bg-[#181818] text-white">
                         <span class="text-sm font-semibold">Service Fee</span>
-                        <span class="text-lg font-bold">Rp {{ number_format(9900, 0, ',', '.') }}</span>
+                        <span class="text-lg font-bold">Rp {{ number_format(1900, 0, ',', '.') }}</span>
                     </div>
                     <div class="flex justify-between items-center p-[12px_20px] rounded-lg bg-[#181818] text-white">
                         <span class="text-sm font-semibold">Total Pembayaran</span>
-                        <span class="text-lg font-bold">Rp {{ number_format($product->price + 9900, 0, ',', '.') }}</span>
+                        <span class="text-lg font-bold">Rp {{ number_format($product->price + 1900, 0, ',', '.') }}</span>
                     </div>
                 </div>
             
@@ -103,7 +103,7 @@
                 @this.call('handlePaymentResponse', result)
                     .then(() => {
                         // Redirect ke halaman sukses setelah update status
-                        window.location.href = `/product/checkout/thank-you/${result.order_id}`;
+                        window.location.href = `/agenda/checkout/thank-you/${result.order_id}`;
                     })
                     .catch((error) => {
                         console.error('Error updating transaction status:', error);
@@ -116,7 +116,7 @@
                 @this.call('handlePaymentResponse', result)
                     .then(() => {
                         // Redirect ke halaman pending setelah update status
-                        window.location.href = `/product`;
+                        window.location.href = `/agenda`;
                     })
                     .catch((error) => {
                         console.error('Error updating transaction status:', error);
@@ -132,5 +132,4 @@
 
 
 
-
-
+    

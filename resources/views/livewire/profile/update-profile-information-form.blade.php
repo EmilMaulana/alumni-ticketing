@@ -16,6 +16,9 @@ new class extends Component
     public string $about_me = '';
     public $photo; // Properti untuk foto profil baru
     public $occupation; // Properti untuk foto profil baru
+    public $wa; // Properti untuk foto profil baru
+    public $angkatan; // Properti untuk foto profil baru
+    public $jurusan; // Properti untuk foto profil baru
 
     /**
      * Mount the component.
@@ -25,6 +28,9 @@ new class extends Component
         $user = Auth::user();
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->wa = $user->wa;
+        $this->angkatan = $user->angkatan;
+        $this->jurusan = $user->jurusan;
         $this->about_me = $user->about_me ?? '';
         $this->occupation = $user->occupation;
         // Tidak perlu mendeklarasikan profile_photo_path di sini
@@ -37,10 +43,16 @@ new class extends Component
     {
         $user = Auth::user();
 
+        // Konversi nomor WA terlebih dahulu
+        $this->wa = $this->convertTo62($this->wa);
+
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'about_me' => ['required', 'string', 'max:255'],
+            'wa' => ['required', 'string', 'max:255', 'regex:/^(\+62|62|08)[0-9]{9,15}$/', Rule::unique(User::class)->ignore($user->id)],
+            'jurusan' => ['required'],
+            'angkatan' => ['required'],
             'occupation' => ['required'],
             'photo' => ['nullable', 'image', 'max:2048'], // Validasi untuk foto
         ]);
@@ -67,6 +79,24 @@ new class extends Component
         $user->save();
 
         $this->dispatch('profile-updated', name: $user->name);
+    }
+
+    // Fungsi konversi nomor ke format 62
+    private function convertTo62($value)
+    {
+        // Menghapus karakter selain angka
+        $value = preg_replace('/[^0-9]/', '', $value);
+
+        // Konversi sesuai format
+        if (substr($value, 0, 2) === '0') {
+            return '62' . substr($value, 2);
+        } elseif (substr($value, 0, 3) === '062') {
+            return '62' . substr($value, 3);
+        } elseif (substr($value, 0, 1) === '0') {
+            return '62' . substr($value, 1);
+        }
+
+        return $value;
     }
 
     /**
@@ -121,6 +151,41 @@ new class extends Component
                 </div>
             @endif
         </div>
+
+        <!-- WA -->
+        <div>
+            <x-input-label for="wa" :value="__('WhatsApp')" />
+            <x-text-input wire:model="wa" id="wa" name="wa" type="text" class="mt-1 block w-full" required placeholder="Contoh: +6281234567890" />
+            <x-input-error class="mt-2" :messages="$errors->get('wa')" />
+        </div>
+
+        <!-- Jurusan -->
+        <div>
+            <x-input-label for="jurusan" :value="__('Jurusan')" />
+            <select wire:model="jurusan" id="jurusan" name="jurusan" class="px-2 py-2 mt-1 block w-full border-gray-300 rounded-lg">
+                <option value="" disabled selected>Pilih Jurusan</option>
+                <option value="TKRO">Teknik Kendaraan Ringan Otomotif (TKRO)</option>
+                <option value="TKJ">Teknik Komputer dan Jaringan (TKJ)</option>
+                <option value="RPL">Rekayasa Perangkat Lunak (RPL)</option>
+                <option value="OTKP">Otomatisasi dan Tata Kelola Perkantoran (OTKP)</option>
+                <option value="AKL">Akuntansi dan Keuangan Lembaga (AKL)</option>
+                <option value="DPIB">Desain Pemodelan dan Informasi Bangunan (DPIB)</option>
+                <option value="SK">Seni Kerajinan (SK)</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('jurusan')" />
+        </div>
+
+        <!-- Angkatan -->
+        <div>
+            <x-input-label for="angkatan" :value="__('Angkatan')" />
+            <select wire:model="angkatan" id="angkatan" name="angkatan" class="px-2 py-2 mt-1 block w-full border-gray-300 rounded-lg">
+                <option value="" disabled selected>Pilih Angkatan</option>
+                @for ($year = 2003; $year <= now()->year; $year++)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endfor
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('angkatan')" />
+        </div>
         
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -146,12 +211,12 @@ new class extends Component
             @endif
         </div>
         <div>
-            <x-input-label for="occupation" :value="__('Occupation')" />
+            <x-input-label for="occupation" :value="__('Pekerjaan')" />
             <x-text-input wire:model="occupation" id="occupation" name="occupation" type="text" class="mt-1 block w-full"/>
             <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
         </div>
         <div>
-            <x-input-label for="about_me" :value="__('About Me')" />
+            <x-input-label for="about_me" :value="__('Deskripsi')" />
             {{-- <textarea wire:model="about_me" name="about_me" id="about_me" cols="30" rows="10" class="block p-2.5 w-full text-sm mt-1 " required autofocus autocomplete="about_me"></textarea> --}}
             <textarea wire:model="about_me" name="about_me" id="about_me" rows="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Write your thoughts here..."></textarea>
             {{-- <x-text-input wire:model="about_me" id="about_me" name="about_me" type="text" class="mt-1 block w-full" required autofocus autocomplete="about_me" /> --}}

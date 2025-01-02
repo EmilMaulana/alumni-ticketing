@@ -3,34 +3,12 @@
     <header class="w-full pt-20 pb-10 bg-[url({{ asset('images/backgrounds/hero-image.png') }})] bg-cover bg-no-repeat bg-center relative z-0">
         <div class="container max-w-[1130px] mx-auto flex flex-col items-center justify-center gap-8 z-10">
             <div class="flex flex-col gap-2 text-center w-fit mt-20 z-10">
-                <h1 class="font-semibold text-4xl md:text-5xl lg:text-4xl leading-tight">Semua Produk</h1>
+                <h1 class="font-semibold text-4xl md:text-5xl lg:text-4xl leading-tight">Semua Agenda   </h1>
             </div>
         </div>
         <div class="w-full h-full absolute top-0 bg-gradient-to-b from-belibang-black/70 to-belibang-black z-0"></div>
     </header>
 
-    <!-- Tabs untuk memilih Produk atau Custom Produk -->
-    <section class="container max-w-[1130px] mx-auto py-8">
-        <div class="border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                <li class="mr-2">
-                    <button id="showAllProductsBtn" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 active-tab">
-                        Produk Tersedia
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button id="showCustomProductFormBtn" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
-                        Custom Produk
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Form Custom Produk (Awalnya Tersembunyi) -->
-    <section id="customProductForm" class="container max-w-[1130px] mx-auto mb-24 mt-5 flex flex-col gap-8 hidden">
-        @livewire('product.custom')
-    </section>
 
     <!-- Daftar Produk dari Tabel Product -->
     <section id="NewProduct" class="container max-w-[1130px] mx-auto mb-24 mt-5">

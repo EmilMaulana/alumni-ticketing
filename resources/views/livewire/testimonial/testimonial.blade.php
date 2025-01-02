@@ -74,7 +74,79 @@
             </table>
         </div>        
     </div>
+    <div class="container">
+        <section class="rounded-lg shadow bg-gray-50 antialiased my-5">
+            <div class="max-w-screen-xl px-4 mx-auto py-8">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold leading-tight tracking-tight text-gray-800">
+                        Aktifitas Saya
+                    </h2>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Lihat perjalanan dan aktivitasmu di platform kami
+                    </p>
+                </div>
     
-    
-    
+                <div class="flow-root max-w-3xl mx-auto my-10">
+                    <div class="divide-y divide-gray-200">
+                        <!-- Item Aktifitas -->
+                        <div class="flex items-start gap-4 py-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user-plus text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-gray-800">
+                                    Bergabung
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Kamu bergabung pada <strong>{{ Auth::user()->created_at->toDateTimeString() }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                        @if ($checkedTransaction)
+                            <div class="flex items-start gap-4 py-6">
+                                <!-- Ikon Kehadiran -->
+                                <div class="flex-shrink-0 w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check-circle text-xl"></i>
+                                </div>
+                                <!-- Detail Kehadiran -->
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-medium text-gray-800">
+                                        Kehadiran Dikonfirmasi
+                                    </h4>
+                                    <h4 class=" font-medium text-gray-800">
+                                        {{ $checkedTransaction->product->name }}
+                                    </h4>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Status diubah menjadi <strong>Hadir</strong> pada 
+                                        <strong>{{ $checkedTransaction->check->updated_at->toDateTimeString() }}</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Daftar Transaksi -->
+                        @foreach ($transactions as $transaction)
+                            <div class="flex items-start gap-4 py-6">
+                                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-medium text-gray-800">
+                                        Transaksi: {{ $transaction->order_id }}
+                                    </h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Status: 
+                                        <strong>{{ ucfirst($transaction->status) }}</strong>
+                                        <br>
+                                        Waktu Transaksi: 
+                                        <strong>{{ $transaction->created_at->toDateTimeString() }}</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>    
 </div>

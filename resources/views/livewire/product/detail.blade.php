@@ -90,7 +90,7 @@
                                     <p class="font-semibold">{{ $product->user->name }}</p>
                                     <p class="text-[#595959] text-sm leading-[18px]">
                                         <span class="font-semibold mr-1">{{ $userProductCount }}</span>
-                                        Product
+                                        Agenda
                                     </p>
                                 </div>
                             </div>

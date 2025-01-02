@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('overview');
             $table->string('category');
-            $table->string('file_product')->nullable();
+            $table->enum('status', ['Dibuka', 'Ditutup'])->default('Dibuka'); // Atau gunakan boolean
             $table->string('sold')->nullable();
             $table->timestamps();
         });

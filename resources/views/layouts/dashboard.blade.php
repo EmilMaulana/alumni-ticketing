@@ -24,13 +24,13 @@
     <!-- menu on navbar mobile view -->
     <div class="flex flex-row justify-between lg:hidden bg-white p-5">
         <div class="logo flex flex-row justify-center items-center gap-x-2">
-            <svg id="logo-85" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {{-- <svg id="logo-85" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="ccustom" fill-rule="evenodd" clip-rule="evenodd"
                     d="M10 0C15.5228 0 20 4.47715 20 10V0H30C35.5228 0 40 4.47715 40 10C40 15.5228 35.5228 20 30 20C35.5228 20 40 24.4772 40 30C40 32.7423 38.8961 35.2268 37.1085 37.0334L37.0711 37.0711L37.0379 37.1041C35.2309 38.8943 32.7446 40 30 40C27.2741 40 24.8029 38.9093 22.999 37.1405C22.9756 37.1175 22.9522 37.0943 22.9289 37.0711C22.907 37.0492 22.8852 37.0272 22.8635 37.0051C21.0924 35.2009 20 32.728 20 30C20 35.5228 15.5228 40 10 40C4.47715 40 0 35.5228 0 30V20H10C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0ZM18 10C18 14.4183 14.4183 18 10 18V2C14.4183 2 18 5.58172 18 10ZM38 30C38 25.5817 34.4183 22 30 22C25.5817 22 22 25.5817 22 30H38ZM2 22V30C2 34.4183 5.58172 38 10 38C14.4183 38 18 34.4183 18 30V22H2ZM22 18V2L30 2C34.4183 2 38 5.58172 38 10C38 14.4183 34.4183 18 30 18H22Z"
                     fill="#5417D7"></path>
-            </svg>
+            </svg> --}}
             <a href="/" class="font-bold logo text-2xl text-indigo-950">
-                Teknik Rekayasa
+                <img src="{{asset('images/weone-dark.png')}}" alt="logo" class="w-[180px] h-auto">
             </a>
         </div>
         <a href="#" id="btn-dropdown" class="flex flex-row items-center p-2 border border-gray-300 rounded-full">
@@ -68,7 +68,7 @@
                             My Overview
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('posts.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('posts.list', 'posts.create', 'posts.edit') ? 'text-violet-700' : 'text-indigo-950' }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +83,7 @@
 
                             Posts
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('transactions.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('transactions.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -100,7 +100,7 @@
                             Transactions
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('order.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('order.listt') ? 'text-violet-700' : 'text-indigo-950' }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -115,9 +115,9 @@
 
                             My Order
                         </a>
-                    </li>
+                    </li> --}}
                     @if ( Auth::user()->role_id == 3 )
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('categories.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('categories.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +143,7 @@
                             </svg>
                             Post Category
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('product.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('product.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -168,9 +168,36 @@
                                         stroke-linejoin="round" />
                                 </g>
                             </svg>
-                            Product
+                            Agenda
                         </a>
-                    </li>
+                    </li>   
+                    <li>
+                        <a href="{{ route('kehadiran.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('kehadiran.list') ? 'text-violet-700' : 'text-indigo-950' }}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.0008 22H16.0008C20.0208 22 20.7408 20.39 20.9508 18.43L21.7008 10.43C21.9708 7.99 21.2708 6 17.0008 6H7.0008C2.7308 6 2.0308 7.99 2.3008 10.43L3.0508 18.43C3.2608 20.39 3.9808 22 8.0008 22Z"
+                                    stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path opacity="0.4" d="M8 6V5.2C8 3.43 8 2 11.2 2H12.8C16 2 16 3.43 16 5.2V6"
+                                    stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <g opacity="0.4">
+                                    <path
+                                        d="M14 13V14C14 14.01 14 14.01 14 14.02C14 15.11 13.99 16 12 16C10.02 16 10 15.12 10 14.03V13C10 12 10 12 11 12H13C14 12 14 12 14 13Z"
+                                        stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M21.65 11C19.34 12.68 16.7 13.68 14 14.02" stroke="#292D32"
+                                        stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M2.61914 11.2695C4.86914 12.8095 7.40914 13.7395 9.99914 14.0295"
+                                        stroke="#292D32" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            Kehadiran
+                        </a>
+                    </li>   
                     @endif
                 </ul>
             </div>
@@ -222,14 +249,15 @@
         <div class="h-screen fixed left-sidebar flex-none bg-white py-6 px-4 w-[250px] lg:block hidden">
             <div class="flex flex-col justify-between h-full">
                 <div class="logo flex flex-row justify-center items-center gap-x-2">
-                    <svg id="logo-85" width="40" height="40" viewBox="0 0 40 40" fill="none"
+                    {{-- <svg id="logo-85" width="40" height="40" viewBox="0 0 40 40" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path class="ccustom" fill-rule="evenodd" clip-rule="evenodd"
                             d="M10 0C15.5228 0 20 4.47715 20 10V0H30C35.5228 0 40 4.47715 40 10C40 15.5228 35.5228 20 30 20C35.5228 20 40 24.4772 40 30C40 32.7423 38.8961 35.2268 37.1085 37.0334L37.0711 37.0711L37.0379 37.1041C35.2309 38.8943 32.7446 40 30 40C27.2741 40 24.8029 38.9093 22.999 37.1405C22.9756 37.1175 22.9522 37.0943 22.9289 37.0711C22.907 37.0492 22.8852 37.0272 22.8635 37.0051C21.0924 35.2009 20 32.728 20 30C20 35.5228 15.5228 40 10 40C4.47715 40 0 35.5228 0 30V20H10C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0ZM18 10C18 14.4183 14.4183 18 10 18V2C14.4183 2 18 5.58172 18 10ZM38 30C38 25.5817 34.4183 22 30 22C25.5817 22 22 25.5817 22 30H38ZM2 22V30C2 34.4183 5.58172 38 10 38C14.4183 38 18 34.4183 18 30V22H2ZM22 18V2L30 2C34.4183 2 38 5.58172 38 10C38 14.4183 34.4183 18 30 18H22Z"
                             fill="#5417D7"></path>
-                    </svg>
+                    </svg> --}}
                     <a href="/" class="font-bold logo text-2xl text-indigo-950">
-                        Teknik Rekayasa
+                        <img src="{{asset('images/weone-dark.png')}}" alt="logo" class="w-[180px] h-auto">
+
                     </a>
                 </div>
                 <div class="flex flex-col gap-y-10">
@@ -254,7 +282,7 @@
                                     My Overview
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('posts.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('posts.list', 'posts.create', 'posts.edit') ? 'text-violet-700' : 'text-indigo-950' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +298,7 @@
 
                                     Posts
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('transactions.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('transactions.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -288,7 +316,7 @@
                                     Transactions
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('order.list') }}" class="flex flex-row gap-x-2 font-semibold text-base text-indigo-950 {{ request()->routeIs('order.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -304,9 +332,9 @@
 
                                     My Order
                                 </a>
-                            </li>
+                            </li> --}}
                             @if ( Auth::user()->role_id == 3 )
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('categories.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('categories.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -332,7 +360,7 @@
                                     </svg>
                                     Post Category
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('product.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('product.list') ? 'text-violet-700' : 'text-indigo-950' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -357,7 +385,34 @@
                                                 stroke-linecap="round" stroke-linejoin="round" />
                                         </g>
                                     </svg>
-                                    Product
+                                    Agenda
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('kehadiran.list') }}" class="flex flex-row gap-x-2 font-semibold text-base {{ request()->routeIs('kehadiran.list') ? 'text-violet-700' : 'text-indigo-950' }}">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8.0008 22H16.0008C20.0208 22 20.7408 20.39 20.9508 18.43L21.7008 10.43C21.9708 7.99 21.2708 6 17.0008 6H7.0008C2.7308 6 2.0308 7.99 2.3008 10.43L3.0508 18.43C3.2608 20.39 3.9808 22 8.0008 22Z"
+                                            stroke="#292D32" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path opacity="0.4" d="M8 6V5.2C8 3.43 8 2 11.2 2H12.8C16 2 16 3.43 16 5.2V6"
+                                            stroke="#292D32" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <g opacity="0.4">
+                                            <path
+                                                d="M14 13V14C14 14.01 14 14.01 14 14.02C14 15.11 13.99 16 12 16C10.02 16 10 15.12 10 14.03V13C10 12 10 12 11 12H13C14 12 14 12 14 13Z"
+                                                stroke="#292D32" stroke-width="2" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M21.65 11C19.34 12.68 16.7 13.68 14 14.02" stroke="#292D32"
+                                                stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M2.61914 11.2695C4.86914 12.8095 7.40914 13.7395 9.99914 14.0295"
+                                                stroke="#292D32" stroke-width="2" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </g>
+                                    </svg>
+                                    Kehadiran
                                 </a>
                             </li>
                             @endif
@@ -448,7 +503,10 @@
             {{-- content --}}
         </div>
     </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const btndropdown = document.getElementById('btn-dropdown');

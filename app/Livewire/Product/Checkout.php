@@ -45,10 +45,10 @@ class Checkout extends Component
 
     public function createSnapToken($product, $paymentType)
     {
-        $orderId = 'TEKNIKREKAYASA-' . rand(1000, 9999);
+        $orderId = 'ALUMNI-' . rand(1000, 9999);
 
         // Tambahkan service fee sebesar 9000 ke dalam total
-        $serviceFee = 9900;
+        $serviceFee = 1900;
         $totalAmount = $product->price + $serviceFee;
 
         $transactionDetails = [

@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Alumni;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Post;
-use App\Models\Transaction;
-use Livewire\WithPagination;
 
-class UserList extends Component
+class Front extends Component
 {
-    use WithPagination;
     public $search = ''; // Properti untuk pencarian
     public $angkatan = ''; // Properti untuk pencarian
     public $jurusan = ''; // Properti untuk pencarian
@@ -33,9 +28,7 @@ class UserList extends Component
         $users = User::query()
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
-                    $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%')
-                    ->orWhere('wa', 'like', '%' . $this->search . '%');
+                    $q->where('name', 'like', '%' . $this->search . '%');
                 });
             })
             ->when($this->angkatan, function ($query) {
@@ -47,19 +40,8 @@ class UserList extends Component
             ->orderBy('angkatan', 'desc')
             ->paginate(10);
 
-        return view('livewire.user.user-list', [
+        return view('livewire.alumni.front', [
             'users' => $users,
         ]);
     }
-
-
-    // public function updateStatus($postId, $status)
-    // {
-    //     $post = Post::find($postId);
-    //     if ($post) {
-    //         $post->status = $status;
-    //         $post->save();
-    //     }
-    // }
-
 }

@@ -19,13 +19,16 @@
                             Order ID
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Barcode
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Barcode
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Cover
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            File
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Price
@@ -39,27 +42,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($transactions as $transaction)
-                        <tr class="bg-white border-b text-gray-900">
+                    @forelse($transactions as $transaction)
+                        <tr class="bg-white border-b text-gray-900 text-nowrap">
                             <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
                                 {{ $transaction->order_id }}
                             </th>
+                            <td class="px-6 py-4">
+                                {{-- Generate QR Code --}}
+                                {!! QrCode::size(100)->generate($transaction->order_id) !!}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{-- Tombol Download --}}
+                                @if ($transaction->status === 'success')
+                                    <a href="{{ route('download.qrcode', ['orderId' => $transaction->order_id]) }}" class="text-nowrap inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
+                                        <i class="fas fa-download mr-2"></i> <!-- Icon download dari Font Awesome -->
+                                        Download Tiket
+                                    </a>
+                                @else
+                                    <span class="text-gray-500">Pembayaran Belum Berhasil</span>
+                                @endif
+                            </td>                            
                             <td class="px-6 py-4">
                                 <img src="{{ Storage::url($transaction->product->image)  }}" alt="{{ $transaction->product->name }}" class="w-30 h-24 object-cover rounded-md">
                             </td>
                             <td class="px-6 py-4">
                                 {{ $transaction->product->name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($transaction->status === 'success')
-                                        <!-- Jika file bukan gambar, tampilkan sebagai link download -->
-                                        <a href="{{ $transaction->product->file_product }}" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" target="_blank">
-                                            <i class="fas fa-download mr-2"></i> <!-- Icon download dari Font Awesome -->
-                                            Download
-                                        </a>
-                                @else
-                                    <span class="text-gray-500">Pembayaran belum berhasil</span>
-                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 Rp {{ number_format($transaction->amount, 0, ',', '.') }}
@@ -77,7 +84,13 @@
                                 @endif
                             </td>                                             
                         </tr>
-                    @endforeach
+                        @empty
+                        <tr class="bg-white border-b text-gray-900">
+                            <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                Tidak ada data yang ditemukan.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

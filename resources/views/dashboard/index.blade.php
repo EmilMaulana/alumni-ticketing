@@ -8,37 +8,25 @@
                 <h1 class="text-2xl text-indigo-950 font-bold mb-1">
                     My Overview
                 </h1>
-                <p class="text-sm text-gray-500">
-                    Lorem dolor reporting easier
-                </p>
             </div>
             <div class="flex flex-row gap-x-3">
-
-                <a href=""
-                    class="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-indigo-950 bg-white">
-                    Filter
-                </a>
-                <a href=""
-                    class="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700">
-                    Export Data
-                </a>
             </div>
         </div>
     </section>
     @if (Auth::user()->role_id == 3)
         @livewire('statistic.statistic')
         <section class="header px-7 py-5">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4">
                 @livewire('user.user-list')
-                @livewire('dashboard.post-list')
+                {{-- @livewire('dashboard.post-list') --}}
             </div>
         </section>
         <section class="header px-7 py-5">
             @livewire('dashboard.transactions-list')
         </section>
-        <section class="header px-7 py-5">
-            @livewire('product.custom-product-list')
-        </section>
+        {{-- <section class="header px-7 py-5">
+            @livewire('product.check')
+        </section> --}}
     @else
         <section class="header px-7 pt-10">
             <div class="flex flex-col gap-y-5 md:flex-row md:items-center justify-start md:justify-between header-section w-full">

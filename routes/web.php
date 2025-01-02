@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\QRCodeController;
 use App\Livewire\Product\Checkout;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -37,10 +38,10 @@ Route::get('/search', [FrontController::class, 'post'])->name('search.index');
 Route::post('/midtrans/callback', [ProductController::class, 'handleMidtransCallback']);
 
 // Route::get('/product/checkout/pending/{order_id}', [ProductController::class, 'pending'])->name('product.checkout.pending')->middleware(['auth', 'verified']);
-Route::get('/product/checkout/thank-you/{order_id}', [ProductController::class, 'success'])->name('product.checkout.success')->middleware(['auth', 'verified']);
-Route::get('/product', [ProductController::class, 'frontProduct'])->name('front.product');
-Route::get('/product/{product:slug}', [ProductController::class, 'detail'])->name('product.detail');
-Route::get('/product/checkout/{product:slug}', [ProductController::class, 'checkout'])->name('product.checkout')->middleware(['auth', 'verified']);
+Route::get('/agenda/checkout/thank-you/{order_id}', [ProductController::class, 'success'])->name('product.checkout.success')->middleware(['auth', 'verified']);
+Route::get('/agenda', [ProductController::class, 'frontProduct'])->name('front.product');
+Route::get('/agenda/{product:slug}', [ProductController::class, 'detail'])->name('product.detail');
+Route::get('/agenda/checkout/{product:slug}', [ProductController::class, 'checkout'])->name('product.checkout')->middleware(['auth', 'verified']);
 Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/category', [FrontController::class, 'category'])->name('front.category');
 Route::get('/{post:slug}', [FrontController::class, 'show'])->name('front.post');
@@ -54,11 +55,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/posts/{post:slug}/edit', [PostsController::class, 'edit'])->name('posts.edit');
     Route::post('/dashboard/posts/{post:slug}/update', [PostsUpdate::class, 'update'])->name('posts.update');
     Route::delete('/dashboard/posts/{post:slug}/delete', [PostsList::class, 'delete'])->name('posts.delete');
-    Route::get('/dashboard/product', [ProductController::class, 'index'])->name('product.list');
+
+    Route::get('/dashboard/agenda', [ProductController::class, 'index'])->name('product.list');
+    Route::get('/dashboard/kehadiran', [ProductController::class, 'kehadiran'])->name('kehadiran.list');
     Route::post('/ckeditor/upload', [ImageUploadController::class, 'upload'])->name('ckeditor.upload');
 
     Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('transactions.list');
     Route::get('/dashboard/my-order', [DashboardController::class, 'order'])->name('order.list');
+
+    Route::get('/download/qrcode/{orderId}', [QRCodeController::class, 'download'])->name('download.qrcode');
 });
 
 Route::middleware(['auth', 'verified' ,'role'])->group(function () {

@@ -2,98 +2,23 @@
 @section('content')
 
 <header
-    class="w-full pt-[74px] pb-[34px] bg-[url('{{asset('images/backgrounds/technology.jpg')}}')] bg-cover bg-no-repeat bg-center relative z-0">
+    class="w-full pt-[94px] pb-[94px] bg-[url('{{asset('images/hero-3.png')}}')] bg-cover bg-no-repeat bg-center relative z-0">
     <div class="container max-w-[1130px] mx-auto flex flex-col items-center justify-center gap-[34px] z-10 px-3">
         <div class="flex flex-col gap-2 text-center w-fit mt-20 z-10">
-            <h1 class="font-semibold text-[45px] leading-[130%]">Platform
-                belajar coding online <br> yang dirancang untuk pemula.</h1>
-            <p class="text-lg text-belibang-grey">Pelajari HTML,
-                CSS, JavaScript, PHP dan bahasa pemrograman lainnya dengan tutorial interaktif dan berbasis projek.</p>
-        </div>
-        <div class="flex w-full justify-center mb-[34px] z-10">
-            <form action="{{ route('search.index') }}"
-                class="group/search-bar p-[14px_18px] bg-belibang-darker-grey ring-1 ring-[#414141] hover:ring-[#888888] max-w-[560px] w-full rounded-full transition-all duration-300">
-                @if (request('category'))
-                    <input type="hidden" name="category" value="{{ request('category') }}">
-                @endif
-                @if (request('user'))
-                    <input type="hidden" name="user" value="{{ request('user') }}">
-                @endif
-                <div class="relative text-left">
-                    <button type="submit" class="absolute inset-y-0 left-0 flex items-center">
-                        <img src="{{asset('images/icons/search-normal.svg')}}" alt="icon">
-                    </button>
-                    <input name="search" value="{{ request('search') }}" type="text" id="search"
-                        class="bg-belibang-darker-grey w-full pl-[36px] focus:outline-none placeholder:text-[#595959] pr-9"
-                        placeholder="Type anything to search..." />
-                    <input name="keyword" type="reset" id="resetButton"
-                        class="close-button hidden w-[38px] h-[38px] flex shrink-0 bg-[url('{{asset('images/icons/close.svg')}}')] hover:bg-[url('{{asset('images/icons/close-white.svg')}}')] transition-all duration-300 appearance-none transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 -right-5">
-                </div>
-            </form>
+            <h1 class="font-semibold text-[45px] leading-[130%]">Selamat datang di website resmi
+                 <br>Alumni SMK NEGERI 1 KAWALI.</h1>
         </div>
     </div>
     <div class="w-full h-full absolute top-0 bg-gradient-to-b from-belibang-black/70 to-belibang-black z-0"></div>
 </header>
 
-<x-category/>
-
-<section id="Testimonial" class="mb-[102px] flex flex-col gap-8">
-    <div class="container max-w-[1130px] mx-auto flex justify-between items-center px-3">
-        <h2 class="font-semibold text-[20px] ">Postingan Terbaru <br></h2>
-        <div class="flex gap-[14px] items-center">
-            <button class="btn-prev w-10 h-10 shrink-0 rounded-full overflow-hidden rotate-180">
-                <img src="{{asset('/images/icons/circle-arrow-r.svg')}}" alt="icon">
-            </button>
-            <button class="btn-next w-10 h-10 shrink-0 rounded-full overflow-hidden">
-                <img src="{{asset('/images/icons/circle-arrow-r.svg')}}" alt="icon">
-            </button>
-        </div>
-    </div>
-    <div class="w-full overflow-x-hidden no-scrollbar px-3">
-        <div class="testi-carousel" data-flickity>
-            <div class="flex w-[calc((100vw-1130px-20px)/2)] shrink-0"></div>
-            {{-- card post --}}
-            @foreach ($posts as $post)
-                <a href="{{ route('front.post', $post->slug) }}">
-                    <div
-                        class="testimonial-card bg-[#181818] rounded-[20px] flex mr-5 w-[320px] h-[410px] shrink-0  mb-10">
-                        <div
-                            class="p-5 flex flex-col w-full gap-[42px] shrink-0 bg-[url('{{asset('/images/backgrounds/Testimonials-image.png')}}')] bg-contain bg-no-repeat bg-top">
-                            <div class="flex flex-col gap-4">
-                                <img class="w-full rounded-lg" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}"/>
-                                <div class="flex items-center gap-[6px]">
-                                    <span class="bg-violet-700 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded ">{{ $post->category->name }}</span>
-                                    <span class="text-white text-sm"><i class="fas fa-eye"></i> {{ $post->views }} Views</span>
-                                </div>
-                                <p class="leading-[26px]">{{ $post->title }}</p>
-                            </div>
-                            <div class="flex gap-[10px] items-center -mt-8">
-                                <div class="w-12 h-12 flex shrink-0 rounded-full">
-                                    <img src="{{ $post->user->profile_photo_path ? asset('storage/' . $post->user->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->user->name).'&background=random' }}" 
-                                        class="w-full h-full object-cover rounded-full"
-                                        alt="photo">
-                                </div>
-                                <div class="flex flex-col justify-center-center">
-                                    <p
-                                        class="font-semibold text-left leading-[170%] bg-clip-text text-transparent bg-gradient-to-r from-[#B05CB0] to-[#FCB16B]">
-                                        {{ $post->user->name }}
-                                    </p>
-                                    <p class="font-semibold text-left text-xs text-belibang-grey">
-                                        {{ $post->created_at->isoFormat('D MMMM Y') }}
-                                    </p>    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-    </div>
+<section class="mb-[102px] mt-[80px] max-w-4xl mx-auto px-3">
+    @livewire('alumni.front')
 </section>
 
 <section id="Tool" class="mb-[102px] flex flex-col gap-8">
     <div class="container max-w-[1130px] mx-auto flex justify-between items-center px-3">
-        <h2 class="font-semibold text-[22px]">Kata mereka yang belajar bersama<br>Teknik Rekayasa</h2>
+        <h2 class="font-semibold text-[22px]">Kata mereka yang telah lulus dari<br>SMK NEGERI 1 KAWALI</h2>
     </div>
     <div class="tools-logos w-full overflow-hidden flex flex-col gap-5">
         {{-- group slider 1 --}}
@@ -162,7 +87,188 @@
     </div>
 </section>
 
+<section class="max-w-6xl mx-auto py-12 md:px-8 px-4 xl:px-0 mt-[82px] mb-[100px]">
+    <div class="flex flex-col gap-y-7">
+        <h1 class="font-semibold text-[35px] leading-[130%]">Frequently Asked Questions</h1>
+        <div class="grid lg:grid-cols-2 gap-x-8 gap-y-8">
+            <div class="flex-col flex gap-y-8">
+                <div class="group faq-card shaynakit-accordion">
+                    <div class="bg-white rounded-2xl p-5 flex flex-col gap-y-5">
+                        <a href="#" class="btn-accordion">
+                            <div class="flex flex-row justify-between">
+                                <h3 class="text-indigo-950 font-bold text-lg">
+                                    Apa tujuan website alumni K-One ini?
+                                </h3>
+                                <div
+                                    class="bg-white w-[30px] h-[30px] items-center flex justify-center rounded-full">
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.44 6.7124L10.55 11.6024C9.9725 12.1799 9.0275 12.1799 8.45 11.6024L3.56 6.7124"
+                                            stroke="#080C2E" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
 
+                                </div>
+                            </div>
+                        </a>
+                        <div class="accordion-content hidden flex flex-col gap-y-5">
+                            <p class="text-base text-gray-500 leading-loose">
+                                Website ini bertujuan untuk menghubungkan kembali para alumni K-One, berbagi informasi terkini, serta menjadi ruang untuk kegiatan dan kesempatan berjejaring. Melalui platform ini, alumni bisa terus terhubung dan saling mendukung dalam berbagai kegiatan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group faq-card shaynakit-accordion">
+                    <div class="bg-white rounded-2xl p-5 flex flex-col gap-y-5">
+                        <a href="#" class="btn-accordion">
+                            <div class="flex flex-row justify-between">
+                                <h3 class="text-indigo-950 font-bold text-lg">
+                                    Bagaimana cara mendaftar sebagai anggota?
+                                </h3>
+                                <div
+                                    class="bg-white w-[30px] h-[30px] items-center flex justify-center rounded-full">
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.44 6.7124L10.55 11.6024C9.9725 12.1799 9.0275 12.1799 8.45 11.6024L3.56 6.7124"
+                                            stroke="#080C2E" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                        </a>
+                        <div class="accordion-content hidden flex flex-col gap-y-5">
+                            <p class="text-base text-gray-500 leading-loose">
+                                Untuk bergabung, klik tombol “Gabung Sekarang” di halaman utama. Isi formulir registrasi dengan informasi pribadi Anda, seperti nama, tahun lulus, dan kontak. Setelah itu, ikuti instruksi verifikasi yang dikirimkan ke email Anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group faq-card shaynakit-accordion">
+                    <div class="bg-white rounded-2xl p-5 flex flex-col gap-y-5">
+                        <a href="#" class="btn-accordion">
+                            <div class="flex flex-row justify-between">
+                                <h3 class="text-indigo-950 font-bold text-lg">
+                                    Apakah semua alumni bisa bergabung?
+                                </h3>
+                                <div
+                                    class="bg-white w-[30px] h-[30px] items-center flex justify-center rounded-full">
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.44 6.7124L10.55 11.6024C9.9725 12.1799 9.0275 12.1799 8.45 11.6024L3.56 6.7124"
+                                            stroke="#080C2E" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="accordion-content hidden flex flex-col gap-y-5">
+                            <p class=" text-base text-gray-500 leading-loose">
+                                Ya, semua alumni K-One dari berbagai angkatan dipersilakan untuk bergabung. Website ini terbuka untuk siapa pun yang pernah menempuh pendidikan di K-One dan ingin tetap terhubung dengan komunitas.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-col flex gap-y-8">
+                <div class="group faq-card shaynakit-accordion">
+                    <div class="bg-white rounded-2xl p-5 flex flex-col gap-y-5">
+                        <a href="#" class="btn-accordion">
+                            <div class="flex flex-row justify-between">
+                                <h3 class="text-indigo-950 font-bold text-lg">
+                                    Bagaimana cara mengikuti acara atau reuni yang diadakan?
+                                </h3>
+                                <div
+                                    class="bg-white w-[30px] h-[30px] items-center flex justify-center rounded-full">
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.44 6.7124L10.55 11.6024C9.9725 12.1799 9.0275 12.1799 8.45 11.6024L3.56 6.7124"
+                                            stroke="#080C2E" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                        </a>
+                        <div class="accordion-content hidden flex flex-col gap-y-5">
+                            <p class=" text-base text-gray-500 leading-loose">
+                                Informasi acara dan reuni dapat ditemukan di bagian “Agenda Kegiatan” pada website ini. Setiap acara biasanya dilengkapi dengan detail tanggal, lokasi, dan cara pendaftaran agar Anda bisa mengikuti dengan mudah.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="group faq-card shaynakit-accordion">
+                    <div class="bg-white rounded-2xl p-5 flex flex-col gap-y-5">
+                        <a href="#" class="btn-accordion">
+                            <div class="flex flex-row justify-between">
+                                <h3 class="text-indigo-950 font-bold text-lg">
+                                    Apakah saya bisa memperbarui informasi profil saya?
+                                </h3>
+                                <div
+                                    class="bg-white w-[30px] h-[30px] items-center flex justify-center rounded-full">
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.44 6.7124L10.55 11.6024C9.9725 12.1799 9.0275 12.1799 8.45 11.6024L3.56 6.7124"
+                                            stroke="#080C2E" stroke-width="2" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                        </a>
+                        <div class="accordion-content hidden flex flex-col gap-y-5">
+                            <p class=" text-base text-gray-500 leading-loose">
+                                Tentu. Anda dapat memperbarui informasi profil kapan saja dengan masuk ke akun Anda, kemudian klik “Edit Profil.” Pastikan data selalu terbaru agar mudah dihubungi oleh teman-teman seangkatan.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+</section>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        // Ambil semua tombol accordion
+        const accordionButtons = document.querySelectorAll('.btn-accordion');
+    
+        // Loop melalui semua tombol accordion dan tambahkan event listener
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+            // Mencegah perilaku default (misalnya reload halaman saat klik)
+            e.preventDefault();
+    
+            // Ambil elemen konten yang terkait dengan tombol yang diklik
+            const accordionContent = this.nextElementSibling;
+    
+            // Toggle visibilitas konten
+            accordionContent.classList.toggle('hidden');
+    
+            // Ganti icon SVG (rotasi tanda panah)
+            const icon = this.querySelector('svg');
+            if (accordionContent.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                icon.style.transform = 'rotate(180deg)';
+            }
+            });
+        });
+        });
+</script>
+  
 @endsection
 
 @push('after-script')

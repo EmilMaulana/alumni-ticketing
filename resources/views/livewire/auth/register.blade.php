@@ -6,11 +6,11 @@
             <form wire:submit.prevent="register">
                 <div class="flex flex-col gap-y-7">
                     <h3 class="xl:text-4xl md:text-3xl text-2xl text-indigo-950 font-bold leading-relaxed">
-                        Sign Up & Start <br class="lg:block hidden"> Coding Today
+                        Sign Up 
                     </h3>
                     <div>
                         <p class="font-semibold text-indigo-950 text-base mb-2">
-                            Name
+                            Nama Lengkap
                         </p>
                         <input wire:model="name" id="name"
                             class="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
@@ -19,13 +19,61 @@
                     </div>
                     <div>
                         <p class="font-semibold text-indigo-950 text-base mb-2">
-                            Email Address
+                            Alamat Email
                         </p>
                         <input wire:model="email" id="email"
                             class="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                             type="email" name="email" required>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
+                    <div>
+                        <p class="font-semibold text-indigo-950 text-base mb-2">
+                            No WhatsApp
+                        </p>
+                        <input wire:model="wa" id="wa"
+                            class="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
+                            type="text" name="wa" required>
+                        <x-input-error :messages="$errors->get('wa')" class="mt-2" />
+                    </div>
+                    <div>
+                        <p class="font-semibold text-indigo-950 text-base mb-2">
+                            Angkatan
+                        </p>
+                        <select wire:model="angkatan"
+                            id="angkatan"
+                            class="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
+                            name="angkatan"
+                            required>
+                            <option value="" disabled selected>Pilih Angkatan</option>
+                            @foreach (range(2003, date('Y')) as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('angkatan')" class="mt-2" />
+                    </div>
+                    
+                    <div>
+                        <p class="font-semibold text-indigo-950 text-base mb-2">
+                            Jurusan
+                        </p>
+                        <select wire:model="jurusan"
+                            id="jurusan"
+                            class="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
+                            name="jurusan"
+                            required>
+                            <option value="" disabled selected>Pilih Jurusan</option>
+                            <option value="TKRO">Teknik Kendaraan Ringan Otomotif (TKRO)</option>
+                            <option value="TKJ">Teknik Komputer dan Jaringan (TKJ)</option>
+                            <option value="RPL">Rekayasa Perangkat Lunak (RPL)</option>
+                            <option value="OTKP">Otomatisasi dan Tata Kelola Perkantoran (OTKP)</option>
+                            <option value="AKL">Akuntansi dan Keuangan Lembaga (AKL)</option>
+                            <option value="DPIB">Desain Pemodelan dan Informasi Bangunan (DPIB)</option>
+                            <option value="SK">Seni Karawitan (SK)</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('jurusan')" class="mt-2" />
+                    </div>
+
+                    
                     <div class="justify-end flex flex-col">
                         <p class="font-semibold text-indigo-950 text-base mb-2">
                             Password
@@ -50,7 +98,7 @@
                             class="w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700">
                             Sign Up
                         </button>
-                        <a href=""
+                        {{-- <a href=""
                             class="w-full flex flex-row justify-center px-7 gap-x-2 items-center rounded-full text-base py-3 font-semibold text-indigo-950 border border-gray-300">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -59,7 +107,7 @@
                                     stroke-linejoin="round" />
                             </svg>
                             Sign in with Google
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </form>                        
