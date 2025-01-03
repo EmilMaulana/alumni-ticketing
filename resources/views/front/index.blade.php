@@ -6,7 +6,7 @@
     <div class="container max-w-[1130px] mx-auto flex flex-col items-center justify-center gap-[34px] z-10 px-3">
         <div class="flex flex-col gap-2 text-center w-fit mt-20 z-10">
             <h1 class="font-semibold text-[45px] leading-[130%]">Selamat datang di website resmi
-                 <br>Alumni SMK NEGERI 1 KAWALI.</h1>
+                <br>Alumni SMK NEGERI 1 KAWALI.</h1>
         </div>
     </div>
     <div class="w-full h-full absolute top-0 bg-gradient-to-b from-belibang-black/70 to-belibang-black z-0"></div>
