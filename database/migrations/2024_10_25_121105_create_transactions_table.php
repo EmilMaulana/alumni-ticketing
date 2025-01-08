@@ -19,6 +19,9 @@ return new class extends Migration
             $table->decimal('amount', 15, 2); // Jumlah total pembayaran
             $table->string('status')->default('pending'); // Status transaksi (pending, success, failed)
             $table->string('payment_type')->nullable(); // Tipe pembayaran (misalnya: credit_card)
+            $table->string('size')->nullable(); // Tipe pembayaran (misalnya: credit_card)
+            $table->string('shipping_method')->nullable(); // Tipe pembayaran (misalnya: credit_card)
+            $table->string('shipping_address')->nullable(); // Tipe pembayaran (misalnya: credit_card)
             $table->timestamps();
         });
     }

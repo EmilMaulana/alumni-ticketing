@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Emil Maulana',
-            'email' => 'emilmaulana10@gmail.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Emil Maulana',
+        //     'email' => 'emilmaulana10@gmail.com',
+        // ]);
     }
 }

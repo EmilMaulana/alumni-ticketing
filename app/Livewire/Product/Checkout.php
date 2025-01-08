@@ -94,6 +94,9 @@ class Checkout extends Component
                 'amount' => $totalAmount, // Simpan total amount termasuk service fee
                 'status' => 'pending',
                 'payment_type' => $paymentType,
+                // 'size' => $this->ukuranKaos, // Simpan ukuran kaos  
+                // 'shipping_method' => $this->metodePengiriman, // Simpan metode pengiriman  
+                // 'shipping_address' => $this->alamat, // Simpan alamat jika diantar  
                 'payment_details' => [
                     'customer_details' => $customerDetails,
                     'item_details' => $itemDetails,

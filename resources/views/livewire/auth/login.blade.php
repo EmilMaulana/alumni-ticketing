@@ -28,10 +28,8 @@
                     <!-- Remember Me -->
                     <div class="block">
                         <label for="remember" class="inline-flex items-center">
-                            <input wire:model="form.remember" id="remember" type="checkbox"
-                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                                name="remember">
-                            <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                            
+                            <a href="https://chat.whatsapp.com/CfgF8nrnF4FAqztZMu5Ers" target="_blank" class="ms-2 text-sm text-indigo-600 dark:text-indigo-400">{{ __('Lupa Password ?') }}</a>
                         </label>
                     </div>
                     <div class="flex flex-col gap-y-4">

@@ -50,6 +50,36 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="flex items-center gap-1 p-[12px_20px] pl-4 justify-between rounded-lg bg-[#181818] hover:ring-[1px] hover:ring-[#A0A0A0] focus:ring-[1px] focus:ring-[#A0A0A0] transition-all duration-300">  
+                            <div class="flex flex-col w-full">  
+                                <label for="size" class="text-xs text-belibang-grey pl-1">Ukuran Kaos</label>  
+                                <div class="flex mt-1 items-center">  
+                                    <select id="size" wire:model="size" class="mt-1 font-semibold bg-transparent outline-none px-1 placeholder:text-[#595959] placeholder:font-normal placeholder:text-sm w-full" required>  
+                                        <option value="" disabled selected>Pilih Ukuran</option>  
+                                        <option value="S">S (Small)</option>  
+                                        <option value="M">M (Medium)</option>  
+                                        <option value="L">L (Large)</option>  
+                                        <option value="XL">XL (Extra Large)</option>  
+                                        <option value="XXL">XXL (Double Extra Large)</option>  
+                                    </select>  
+                                </div>  
+                            </div>  
+                        </div>                          
+                        <div class="flex items-center gap-1 p-[12px_20px] pl-4 justify-between rounded-lg bg-[#181818] hover:ring-[1px] hover:ring-[#A0A0A0] focus:ring-[1px] focus:ring-[#A0A0A0] transition-all duration-300">  
+                            <div class="flex flex-col w-full">  
+                                <label for="shipping_method" class="text-xs text-belibang-grey pl-1">Pilih Metode Pengiriman</label>  
+                                <select id="shipping_method" class="mt-1 bg-transparent outline-none px-1" onchange="toggleAlamatInput()">  
+                                    <option value="diambil">Diambil</option>  
+                                    <option value="diantar">Diantar</option>  
+                                </select>  
+                                <div id="alamat-input" class="hidden flex mt-1 items-center">  
+                                    <label for="shipping_address" class="text-xs text-belibang-grey pl-1">Alamat Pengiriman Kaos</label>  
+                                    <input type="text" id="shipping_address" wire:model="shipping_address"  
+                                        class="mt-1 font-semibold bg-transparent appearance-none autofull-no-bg outline-none px-1 placeholder:text-[#595959] placeholder:font-normal placeholder:text-sm w-full"  
+                                        placeholder="Type here" required>  
+                                </div>  
+                            </div>  
+                        </div>  
                     </div>
                 </div>
             
@@ -129,7 +159,15 @@
         });
     }
 </script>
+<script>  
+    function toggleAlamatInput() {  
+        const pengirimanSelect = document.getElementById('shipping_method');  
+        const alamatInput = document.getElementById('alamat-input');  
+        if (pengirimanSelect.value === 'diantar') {  
+            alamatInput.classList.remove('hidden');  
+        } else {  
+            alamatInput.classList.add('hidden');  
+        }  
+    }  
+</script>  
 
-
-
-    
